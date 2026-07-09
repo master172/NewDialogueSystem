@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 			end_dialog()
 		BaseDialogueNode.transaction_results.ADVANCE:
 			graph_map[current_dialogue_node_id]._exit(dialogue_context)
-			var next_node_map:Vector2i = connection_map[Vector2i(result.node_id,result.port_id)]
+			var next_node_map:Vector2i = connection_map[Vector2i(current_dialogue_node_id,result.port_id)]
 			current_dialogue_node_id = next_node_map.x
 			graph_map[current_dialogue_node_id]._enter(dialogue_context)
 		BaseDialogueNode.transaction_results.RUNNING:

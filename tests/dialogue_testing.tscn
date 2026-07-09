@@ -38,13 +38,27 @@ metadata/_custom_type_script = "uid://7qj2hmgyvpgm"
 
 [sub_resource type="Resource" id="Resource_jupo1"]
 script = ExtResource("5_wlpup")
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus nec velit a ultrices. Integer ut erat volutpat lacus fermentum ullamcorper. In mattis justo ut feugiat tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vel erat ut nisl tempus condimentum. Praesent ullamcorper sagittis viverra. Interdum et malesuada fames ac ante ipsum primis in faucibus. "
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus nec velit a ultrices.
+[page][page]
+ Integer ut erat volutpat lacus fermentum ullamcorper. In mattis justo ut feugiat tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+[page]
+ Sed vel erat ut nisl tempus condimentum. Praesent ullamcorper sagittis viverra.
+ [page]
+Interdum et malesuada fames ac ante ipsum primis in faucibus. "
 id = 1
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
 [sub_resource type="Resource" id="Resource_3yrwc"]
 script = ExtResource("5_wlpup")
-text = "Etiam accumsan quis felis eu molestie. Suspendisse maximus varius laoreet. Vestibulum lorem lectus, ornare placerat tortor id, tempus volutpat massa. Curabitur nec nisi ac libero egestas varius sed nec augue. Duis ac elit sed quam eleifend rutrum et sit amet mauris. Aliquam dolor arcu, tincidunt quis turpis ac, elementum tincidunt tortor. Nam bibendum tortor magna, quis feugiat lorem tincidunt ut. Fusce vitae urna venenatis, congue risus a, congue mauris. Maecenas lacinia eros at nulla convallis, id efficitur ex fringilla. Proin posuere et nibh nec accumsan. Sed eget nunc non augue laoreet lacinia eget nec sapien. "
+text = "Etiam accumsan quis felis eu molestie. Suspendisse maximus varius laoreet. Vestibulum lorem lectus, ornare placerat tortor id, tempus volutpat massa.
+[page]
+Curabitur nec nisi ac libero egestas varius sed nec augue. Duis ac elit sed quam eleifend rutrum et sit amet mauris. Aliquam dolor arcu, tincidunt quis turpis ac, elementum tincidunt tortor.
+[page]
+ Nam bibendum tortor magna, quis feugiat lorem tincidunt ut. Fusce vitae urna venenatis, congue risus a, congue mauris. Maecenas lacinia eros at nulla convallis, id efficitur ex fringilla. 
+[page]
+Proin posuere et nibh nec accumsan.
+[page]
+Sed eget nunc non augue laoreet lacinia eget nec sapien. "
 id = 2
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
@@ -55,7 +69,19 @@ metadata/_custom_type_script = "uid://cv6pccyh4t72n"
 
 [sub_resource type="Resource" id="Resource_28ruv"]
 script = ExtResource("5_wlpup")
-text = "Nullam viverra tincidunt quam non ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas id ipsum sit amet leo tincidunt faucibus sed eu orci. Sed mattis et turpis ultricies rutrum. Etiam iaculis tortor vitae ex aliquet iaculis. Integer eget justo non augue commodo eleifend non sit amet metus. Aenean eleifend ipsum eget mattis egestas. Morbi vestibulum sed risus a bibendum. Nam at mi vel nisl efficitur fringilla. Aliquam facilisis ligula id sem tristique, vitae feugiat tortor ultrices. Morbi ac leo rhoncus, posuere lectus eu, hendrerit mi. Aliquam erat volutpat. Suspendisse lacinia ullamcorper erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut sem est, lobortis vel metus ac, efficitur luctus diam. "
+text = "Nullam viverra tincidunt quam non ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+[page]
+ Maecenas id ipsum sit amet leo tincidunt faucibus sed eu orci. Sed mattis et turpis ultricies rutrum. Etiam iaculis tortor vitae ex aliquet iaculis.
+[page]
+Integer eget justo non augue commodo eleifend non sit amet metus. Aenean eleifend ipsum eget mattis egestas.
+[page]
+ Morbi vestibulum sed risus a bibendum. Nam at mi vel nisl efficitur fringilla. Aliquam facilisis ligula id sem tristique, vitae feugiat tortor ultrices.
+[page]
+ Morbi ac leo rhoncus, posuere lectus eu, hendrerit mi. Aliquam erat volutpat. Suspendisse lacinia ullamcorper erat. 
+[page]
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+[page]
+ Ut sem est, lobortis vel metus ac, efficitur luctus diam. "
 id = 4
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
