@@ -1,7 +1,4 @@
 extends BaseDialogueNode
-class_name DialogueTextNode
-
-@export_multiline var text:String = ""
 
 @warning_ignore("unused_parameter")
 func _enter(context:DialogueContext)->void:
@@ -11,6 +8,6 @@ func _enter(context:DialogueContext)->void:
 func _exit(context:DialogueContext)->void:
 	pass
 
+@warning_ignore("unused_parameter")
 func _update(context:DialogueContext)->DialogueNodeUpdateResult:
-	print(text)
-	return create_result(transaction_results.SUCCESS)
+	return create_result(transaction_results.FAILURE)

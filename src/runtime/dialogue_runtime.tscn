@@ -74,5 +74,5 @@ theme_override_font_sizes/mono_font_size = 32
 bbcode_enabled = true
 scroll_active = false
 
-[node name="ConnectionParser" type="Node" parent="." unique_id=956331755]
+[node name="GraphParser" type="Node" parent="." unique_id=956331755]
 script = ExtResource("2_28ruv")
