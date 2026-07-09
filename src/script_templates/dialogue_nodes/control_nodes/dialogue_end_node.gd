@@ -1,0 +1,2 @@
+extends BaseDialogueNode
+class_name DialogueEndNode
