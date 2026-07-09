@@ -3,14 +3,26 @@ class_name DialogueTextNode
 
 @export_multiline var text:String = ""
 
-@warning_ignore("unused_parameter")
+var is_finished:bool = false
+
 func _enter(context:DialogueContext)->void:
-	pass
-
-@warning_ignore("unused_parameter")
+	if not context.dialog_box_interface.advance_signal.is_connected(advance_signal_recieved):
+		context.dialog_box_interface.advance_signal.connect(advance_signal_recieved)
+	
+	context.dialog_box_interface.display_text(text)
+	
+	
 func _exit(context:DialogueContext)->void:
-	pass
-
+	if context.dialog_box_interface.advance_signal.is_connected(advance_signal_recieved):
+		context.dialog_box_interface.advance_signal.disconnect(advance_signal_recieved)
+	
+	is_finished = false
+	
 func _update(context:DialogueContext)->DialogueNodeUpdateResult:
-	print(text)
-	return create_result(transaction_results.SUCCESS)
+	if is_finished:
+		return create_result(transaction_results.ADVANCE)
+	
+	return create_result(transaction_results.RUNNING)
+
+func advance_signal_recieved()->void:
+	is_finished = true

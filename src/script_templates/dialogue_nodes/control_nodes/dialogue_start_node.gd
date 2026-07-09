@@ -12,4 +12,4 @@ func _exit(context:DialogueContext)->void:
 @warning_ignore("unused_parameter")
 func _update(context:DialogueContext)->DialogueNodeUpdateResult:
 	print("starting")
-	return create_result(transaction_results.SUCCESS)
+	return create_result(transaction_results.ADVANCE)

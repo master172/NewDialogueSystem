@@ -2,9 +2,8 @@
 class_name BaseDialogueNode
 
 enum transaction_results{
-	START,
 	END,
-	SUCCESS,
+	ADVANCE,
 	RUNNING,
 	FAILURE
 }

@@ -22,8 +22,14 @@ metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
 [sub_resource type="Resource" id="Resource_slit3"]
 script = ExtResource("3_y38vw")
-from_id = 2
+from_id = 4
 to_id = 3
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_ixoop"]
+script = ExtResource("3_y38vw")
+from_id = 2
+to_id = 4
 metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
 [sub_resource type="Resource" id="Resource_y38vw"]
@@ -47,10 +53,16 @@ script = ExtResource("6_wlpup")
 id = 3
 metadata/_custom_type_script = "uid://cv6pccyh4t72n"
 
+[sub_resource type="Resource" id="Resource_28ruv"]
+script = ExtResource("5_wlpup")
+text = "Nullam viverra tincidunt quam non ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas id ipsum sit amet leo tincidunt faucibus sed eu orci. Sed mattis et turpis ultricies rutrum. Etiam iaculis tortor vitae ex aliquet iaculis. Integer eget justo non augue commodo eleifend non sit amet metus. Aenean eleifend ipsum eget mattis egestas. Morbi vestibulum sed risus a bibendum. Nam at mi vel nisl efficitur fringilla. Aliquam facilisis ligula id sem tristique, vitae feugiat tortor ultrices. Morbi ac leo rhoncus, posuere lectus eu, hendrerit mi. Aliquam erat volutpat. Suspendisse lacinia ullamcorper erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut sem est, lobortis vel metus ac, efficitur luctus diam. "
+id = 4
+metadata/_custom_type_script = "uid://ce2qfikhk5avg"
+
 [sub_resource type="Resource" id="Resource_a24fr"]
 script = ExtResource("5_5bjjf")
-dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_3yrwc"), SubResource("Resource_oou4r")])
-connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3")])
+dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_3yrwc"), SubResource("Resource_oou4r"), SubResource("Resource_28ruv")])
+connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3"), SubResource("Resource_ixoop")])
 metadata/_custom_type_script = "uid://5rcpd6ha7bfx"
 
 [sub_resource type="Resource" id="Resource_4p0xp"]
@@ -59,8 +71,10 @@ metadata/_custom_type_script = "uid://5rcpd6ha7bfx"
 
 [node name="DialogueTesting" type="Node2D" unique_id=411720287 node_paths=PackedStringArray("dialogue_runtime")]
 script = ExtResource("1_21ys4")
-dialogue_runtime = NodePath("DialogueRuntime")
+dialogue_runtime = NodePath("CanvasLayer/DialogueRuntime")
 base_dialogue_graph = SubResource("Resource_a24fr")
 
-[node name="DialogueRuntime" parent="." unique_id=475997367 instance=ExtResource("1_j2f88")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=948849447]
+
+[node name="DialogueRuntime" parent="CanvasLayer" unique_id=475997367 instance=ExtResource("1_j2f88")]
 current_dialogue_graph = SubResource("Resource_4p0xp")

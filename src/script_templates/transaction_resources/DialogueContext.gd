@@ -1,2 +1,4 @@
 extends Resource
 class_name DialogueContext
+
+var dialog_box_interface:DialogueBox
