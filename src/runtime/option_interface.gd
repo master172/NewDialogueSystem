@@ -69,7 +69,7 @@ func _input(event: InputEvent) -> void:
 		update_option_display(true)
 	if event.is_action_pressed("ui_accept"):
 		option_selected.emit(current_selected)
-		print("selected option: ",current_selected)
+		#print("selected option: ",current_selected)
 func stop_processing()->void:
 	max_selected = 0
 	current_selected = -1

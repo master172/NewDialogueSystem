@@ -24,7 +24,7 @@ var can_skip:bool = true
 
 func start_dialog_processing(text:String)->bool:
 	pages = TextPaginator.basic_paginate(text)
-	print(TextPaginator.basic_paginate(text))
+	#print(TextPaginator.basic_paginate(text))
 
 	if pages.is_empty():
 		push_error("no text to be paginated")

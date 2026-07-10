@@ -1,6 +1,8 @@
 extends Control
 class_name DialogueRuntime
 
+signal dialogue_finished(dialogue:DialogueGraph)
+
 @export_group("public_interfaces")
 @export var event_bus: EventBus
 
@@ -8,6 +10,7 @@ class_name DialogueRuntime
 @export var dialog_box: DialogueTextBoxInterface
 @export var options_container: DialogueOptionsInterface
 @export var event_interface: DialogueEventInterface
+@export var variable_interface: DialogueVariableInterface
 
 enum STATES{
 	INACTIVE,
@@ -43,9 +46,11 @@ func _ready() -> void:
 	dialogue_context.dialog_box_interface = dialog_box
 	dialogue_context.options_interface = options_container
 	dialogue_context.event_interface = event_interface
+	dialogue_context.variable_interface = variable_interface
 	
 func process_visibility()->void:
-	visible = current_state != STATES.INACTIVE
+	if current_state == STATES.INACTIVE: visible = false
+	else: visible = true
 
 #region dialogue_stack
 func append_to_dialogue_stack(frame:DialogueFrame)->void:
@@ -86,12 +91,17 @@ func start_dialog(dialogue_graph:DialogueGraph)->void:
 
 func end_dialog()->void:
 	clear_maps()
-	current_dialogue_graph = null
 	current_state = STATES.INACTIVE
 	
 	dialogue_context._clear()
 	
 	current_dialogue_node_id = -1
+	
+	var temp_dialog_graph:DialogueGraph = current_dialogue_graph
+	current_dialogue_graph = null
+	dialogue_finished.emit(temp_dialog_graph)
+	temp_dialog_graph = null
+	
 #endregion
 
 func _physics_process(delta: float) -> void:

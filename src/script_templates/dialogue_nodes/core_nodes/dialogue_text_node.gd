@@ -9,8 +9,8 @@ func _enter(context:DialogueContext)->void:
 	if not context.dialog_box_interface.advance_signal.is_connected(advance_signal_recieved):
 		context.dialog_box_interface.advance_signal.connect(advance_signal_recieved)
 	
-	#TODO: add text formatting from internal variables	
-	context.dialog_box_interface.display_dialog(text)
+	var parsed_text:String = VariableParser.replace_symbols(text,context.variable_interface)
+	context.dialog_box_interface.display_dialog(parsed_text)
 	
 	
 func _exit(context:DialogueContext)->void:

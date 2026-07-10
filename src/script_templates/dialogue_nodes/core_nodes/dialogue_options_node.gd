@@ -14,13 +14,13 @@ func _enter(context:DialogueContext)->void:
 	if not context.options_interface.option_selected.is_connected(option_selected):
 		context.options_interface.option_selected.connect(option_selected)
 	
-	context.options_interface.display_options(_build_options(options))
+	context.options_interface.display_options(_build_options(options,context))
 
-func _build_options(options:PackedStringArray)->PackedStringArray:
+func _build_options(options:PackedStringArray,context:DialogueContext)->PackedStringArray:
 	_visible_options.clear()
 	var resulting_options:PackedStringArray
 	for i:int in options.size():
-		resulting_options.append(options[i])
+		resulting_options.append(VariableParser.replace_symbols(options[i],context.variable_interface))
 		_visible_options.append(i)
 	
 	return resulting_options
