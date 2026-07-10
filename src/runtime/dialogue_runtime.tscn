@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dex03s2jhaxx8"]
 
 [ext_resource type="Script" uid="uid://b3fxcda7u8xw0" path="res://src/runtime/dialogue_runtime.gd" id="1_k2jg8"]
-[ext_resource type="Script" uid="uid://b473faupfhkyk" path="res://src/runtime/connection_parser.gd" id="2_28ruv"]
 [ext_resource type="Script" uid="uid://ddebqc6bxskj4" path="res://src/runtime/dialog_box.gd" id="2_ixoop"]
 [ext_resource type="Script" uid="uid://ccyl53unmh87c" path="res://src/runtime/option_interface.gd" id="2_kv54q"]
 [ext_resource type="PackedScene" uid="uid://dl12c3mgrusxh" path="res://src/components/option.tscn" id="2_mldon"]
-[ext_resource type="Script" uid="uid://86e7k80k7h6q" path="res://src/runtime/text_paginator.gd" id="3_wmnoh"]
+[ext_resource type="Script" uid="uid://00ogiiotw4m3" path="res://src/runtime/event_interface.gd" id="5_mldon"]
+[ext_resource type="Script" uid="uid://cync5bdnklvtd" path="res://auxiliarry_systems/event_bus.gd" id="6_kv54q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34jt8"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
@@ -14,7 +14,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("dialog_box", "options_container")]
+[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("event_bus", "dialog_box", "options_container", "event_interface")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,8 +22,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k2jg8")
+event_bus = NodePath("EventInterface/EventBus")
 dialog_box = NodePath("MainContainer/DialogueContainer/DialogBox")
 options_container = NodePath("MainContainer/OptionsContainer")
+event_interface = NodePath("EventInterface")
 
 [node name="MainContainer" type="Control" parent="." unique_id=1425847849]
 layout_mode = 1
@@ -75,12 +77,11 @@ theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 metadata/_edit_use_anchors_ = true
 
-[node name="DialogBox" type="Panel" parent="MainContainer/DialogueContainer" unique_id=2042653408 node_paths=PackedStringArray("text_box", "text_paginator")]
+[node name="DialogBox" type="Panel" parent="MainContainer/DialogueContainer" unique_id=2042653408 node_paths=PackedStringArray("text_box")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_34jt8")
 script = ExtResource("2_ixoop")
 text_box = NodePath("MarginContainer/TextBox")
-text_paginator = NodePath("TextPaginator")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/DialogueContainer/DialogBox" unique_id=63563409]
 layout_mode = 1
@@ -103,8 +104,10 @@ bbcode_enabled = true
 text = "error"
 scroll_active = false
 
-[node name="TextPaginator" type="Node" parent="MainContainer/DialogueContainer/DialogBox" unique_id=55267428]
-script = ExtResource("3_wmnoh")
+[node name="EventInterface" type="Node" parent="." unique_id=1948131811 node_paths=PackedStringArray("event_bus")]
+script = ExtResource("5_mldon")
+event_bus = NodePath("EventBus")
 
-[node name="GraphParser" type="Node" parent="." unique_id=956331755]
-script = ExtResource("2_28ruv")
+[node name="EventBus" type="Node" parent="EventInterface" unique_id=771485399]
+script = ExtResource("6_kv54q")
+metadata/_custom_type_script = "uid://cync5bdnklvtd"

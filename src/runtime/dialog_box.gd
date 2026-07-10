@@ -1,5 +1,5 @@
 extends Panel
-class_name DialogueBox
+class_name DialogueTextBoxInterface
 
 enum STATES {
 	IDLE,
@@ -12,7 +12,6 @@ var current_state:STATES = STATES.IDLE
 signal advance_signal
 
 @export var text_box: RichTextLabel
-@export var text_paginator: TextPaginator
 
 var pages:PackedStringArray = []
 var current_page:int = -1

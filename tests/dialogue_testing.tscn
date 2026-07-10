@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="5_wlpup"]
 [ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="6_wlpup"]
 [ext_resource type="Script" uid="uid://b6efois10qsd0" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_options_node.gd" id="7_adxmr"]
+[ext_resource type="Script" uid="uid://cqifhr1yddokl" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_event_node.gd" id="8_3yrwc"]
 
 [sub_resource type="Resource" id="Resource_wlpup"]
 script = ExtResource("3_y38vw")
@@ -18,7 +19,7 @@ metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 [sub_resource type="Resource" id="Resource_adxmr"]
 script = ExtResource("3_y38vw")
 from_id = 1
-to_id = 5
+to_id = 6
 metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
 [sub_resource type="Resource" id="Resource_slit3"]
@@ -46,6 +47,12 @@ from_port = 1
 to_id = 4
 metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
+[sub_resource type="Resource" id="Resource_3yrwc"]
+script = ExtResource("3_y38vw")
+from_id = 6
+to_id = 5
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
 [sub_resource type="Resource" id="Resource_y38vw"]
 script = ExtResource("4_5bjjf")
 metadata/_custom_type_script = "uid://7qj2hmgyvpgm"
@@ -62,7 +69,7 @@ Interdum et malesuada fames ac ante ipsum primis in faucibus. "
 id = 1
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
-[sub_resource type="Resource" id="Resource_3yrwc"]
+[sub_resource type="Resource" id="Resource_xjs6x"]
 script = ExtResource("5_wlpup")
 text = "Etiam accumsan quis felis eu molestie. Suspendisse maximus varius laoreet. Vestibulum lorem lectus, ornare placerat tortor id, tempus volutpat massa.
 [page]
@@ -105,10 +112,17 @@ options = ["Etiam", "Nullam"]
 id = 5
 metadata/_custom_type_script = "uid://b6efois10qsd0"
 
+[sub_resource type="Resource" id="Resource_pyjqu"]
+script = ExtResource("8_3yrwc")
+event_name = "test_event"
+arguements = [255]
+id = 6
+metadata/_custom_type_script = "uid://cqifhr1yddokl"
+
 [sub_resource type="Resource" id="Resource_a24fr"]
 script = ExtResource("5_5bjjf")
-dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_3yrwc"), SubResource("Resource_oou4r"), SubResource("Resource_28ruv"), SubResource("Resource_kv54q")])
-connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3"), SubResource("Resource_ixoop"), SubResource("Resource_in68u"), SubResource("Resource_dofin")])
+dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_xjs6x"), SubResource("Resource_oou4r"), SubResource("Resource_28ruv"), SubResource("Resource_kv54q"), SubResource("Resource_pyjqu")])
+connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3"), SubResource("Resource_ixoop"), SubResource("Resource_in68u"), SubResource("Resource_dofin"), SubResource("Resource_3yrwc")])
 metadata/_custom_type_script = "uid://5rcpd6ha7bfx"
 
 [node name="DialogueTesting" type="Node2D" unique_id=411720287 node_paths=PackedStringArray("dialogue_runtime")]

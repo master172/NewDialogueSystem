@@ -4,13 +4,27 @@ class_name DialogueOptionsNode
 var _is_finished:bool = false
 var _selected_option:int = -1
 
+#TODO instead of passing plain text pass resources that can hold stuff like disabled,
+#icons etc
 @export var options:PackedStringArray = []
+
+var _visible_options:PackedInt32Array = []
 
 func _enter(context:DialogueContext)->void:
 	if not context.options_interface.option_selected.is_connected(option_selected):
 		context.options_interface.option_selected.connect(option_selected)
 	
-	context.options_interface.display_options(options)
+	context.options_interface.display_options(_build_options(options))
+
+func _build_options(options:PackedStringArray)->PackedStringArray:
+	_visible_options.clear()
+	var resulting_options:PackedStringArray
+	for i:int in options.size():
+		resulting_options.append(options[i])
+		_visible_options.append(i)
+	
+	return resulting_options
+	
 
 func _exit(context:DialogueContext)->void:
 	if context.options_interface.option_selected.is_connected(option_selected):
@@ -19,10 +33,11 @@ func _exit(context:DialogueContext)->void:
 	context.options_interface.stop_processing()
 	_selected_option = -1
 	_is_finished = false
-
+	_visible_options.clear()
+	
 func _update(context:DialogueContext)->DialogueNodeUpdateResult:
 	if _is_finished:
-		return create_result(transaction_results.ADVANCE,_selected_option)
+		return create_result(transaction_results.ADVANCE,_visible_options[_selected_option])
 		
 	return create_result(transaction_results.RUNNING)
 

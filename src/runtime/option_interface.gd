@@ -1,5 +1,5 @@
 extends Control
-class_name OptionsInterface
+class_name DialogueOptionsInterface
 
 @export var OPTION: PackedScene
 
@@ -61,16 +61,12 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("ui_up"):
 		update_option_display(false)
-		print(current_selected)
 		current_selected = (current_selected + max_selected - 1) % max_selected
 		update_option_display(true)
-		print(current_selected)
 	elif event.is_action_pressed("ui_down"):
 		update_option_display(false)
-		print(current_selected)
 		current_selected = (current_selected + 1) % max_selected
 		update_option_display(true)
-		print(current_selected)
 	if event.is_action_pressed("ui_accept"):
 		option_selected.emit(current_selected)
 		print("selected option: ",current_selected)

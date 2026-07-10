@@ -1,8 +1,13 @@
 extends Control
 class_name DialogueRuntime
 
-@export var dialog_box: DialogueBox
-@export var options_container: OptionsInterface
+@export_group("public_interfaces")
+@export var event_bus: EventBus
+
+@export_group("interfaces")
+@export var dialog_box: DialogueTextBoxInterface
+@export var options_container: DialogueOptionsInterface
+@export var event_interface: DialogueEventInterface
 
 enum STATES{
 	INACTIVE,
@@ -14,6 +19,7 @@ var current_state:STATES = STATES.INACTIVE:
 		current_state = value
 		process_visibility()
 
+@export_group("dialogue")
 @export var current_dialogue_graph:DialogueGraph
 
 var dialogue_grpah_stack:Array[DialogueFrame] = []
@@ -33,9 +39,11 @@ var dialogue_context:DialogueContext = DialogueContext.new()
 
 func _ready() -> void:
 	current_state = STATES.INACTIVE
+	
 	dialogue_context.dialog_box_interface = dialog_box
 	dialogue_context.options_interface = options_container
-
+	dialogue_context.event_interface = event_interface
+	
 func process_visibility()->void:
 	visible = current_state != STATES.INACTIVE
 
