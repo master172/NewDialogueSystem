@@ -6,14 +6,17 @@ class_name DialogueEventNode
 
 func _enter(context:DialogueContext)->void:
 	var arguement_list:Array[Variant] = build_arguement_list(arguements,context)
-	context.event_interface.brodcast(event_name,arguement_list)
+	context.event_interface.broadcast(VariableParser.replace_symbols(event_name,context.variable_interface),arguement_list)
 
 func build_arguement_list(args:Dictionary[String,Variant],context:DialogueContext)->Array[Variant]:
 	var returning_list:Array[Variant] = []
 	
 	for i:String in args.keys():
 		var result:Variant = VariableParser.replace_symbols(args[i],context.variable_interface)
-		returning_list.append(result)
+		if args[i] is String:
+			returning_list.append(result)
+		else:
+			returning_list.append(args[i])
 	
 	return returning_list
 	

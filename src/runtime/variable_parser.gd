@@ -1,13 +1,16 @@
 extends Node
 class_name VariableParser
 
+static var symbol_regex:RegEx = RegEx.new()
+
+static func init_symbol_regex()->void:
+	symbol_regex.compile("\\{[^}]*\\}")
+
 static func name_from_symbol(input:String)->String:
 	return input.trim_prefix("{").trim_suffix("}").replace("$","")
 
 static func parse_symbols(input:String)->String:
-	var regex:RegEx = RegEx.new()
-	regex.compile("\\{[^}]*\\}")
-	var result:RegExMatch = regex.search(input)
+	var result:RegExMatch = symbol_regex.search(input)
 	if result:
 		return result.get_string()
 	return ""

@@ -41,6 +41,7 @@ var starting_node_index:int
 var dialogue_context:DialogueContext = DialogueContext.new()
 
 func _ready() -> void:
+	VariableParser.init_symbol_regex()
 	current_state = STATES.INACTIVE
 	
 	dialogue_context.dialog_box_interface = dialog_box
