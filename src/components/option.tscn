@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dl12c3mgrusxh"]
+
+[ext_resource type="Script" uid="uid://wgj637sih78o" path="res://src/components/option.gd" id="1_vf866"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht0a4"]
+bg_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="Option" type="Panel" unique_id=1827074696 node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(0, 32)
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ht0a4")
+script = ExtResource("1_vf866")
+label = NodePath("MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1718764641]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1424046492]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_constants/outline_size = 8
+text = "error"
+horizontal_alignment = 1
+vertical_alignment = 1

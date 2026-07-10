@@ -33,12 +33,15 @@ func start_dialog_processing(text:String)->bool:
 	current_page = 0
 	
 	return true
-	
+
+func clear()->void:
+	text_box.text = ""
+
 func end_dialog_processing()->void:
 	pages.clear()
 	current_page = -1
 	current_state = STATES.IDLE
-	text_box.text = ""
+	
 	if current_tween:
 		current_tween.kill()
 		current_tween = null
@@ -104,6 +107,6 @@ func advance_page_or_finish()->void:
 	else:
 		show_current_page()
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
 		manage_advancement_request()

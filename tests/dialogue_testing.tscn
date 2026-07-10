@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="5_5bjjf"]
 [ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="5_wlpup"]
 [ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="6_wlpup"]
+[ext_resource type="Script" uid="uid://b6efois10qsd0" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_options_node.gd" id="7_adxmr"]
 
 [sub_resource type="Resource" id="Resource_wlpup"]
 script = ExtResource("3_y38vw")
@@ -17,7 +18,7 @@ metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 [sub_resource type="Resource" id="Resource_adxmr"]
 script = ExtResource("3_y38vw")
 from_id = 1
-to_id = 2
+to_id = 5
 metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
 [sub_resource type="Resource" id="Resource_slit3"]
@@ -29,6 +30,19 @@ metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 [sub_resource type="Resource" id="Resource_ixoop"]
 script = ExtResource("3_y38vw")
 from_id = 2
+to_id = 3
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_in68u"]
+script = ExtResource("3_y38vw")
+from_id = 5
+to_id = 2
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_dofin"]
+script = ExtResource("3_y38vw")
+from_id = 5
+from_port = 1
 to_id = 4
 metadata/_custom_type_script = "uid://kmkx5sr24rw0"
 
@@ -85,14 +99,16 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 id = 4
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
+[sub_resource type="Resource" id="Resource_kv54q"]
+script = ExtResource("7_adxmr")
+options = ["Etiam", "Nullam"]
+id = 5
+metadata/_custom_type_script = "uid://b6efois10qsd0"
+
 [sub_resource type="Resource" id="Resource_a24fr"]
 script = ExtResource("5_5bjjf")
-dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_3yrwc"), SubResource("Resource_oou4r"), SubResource("Resource_28ruv")])
-connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3"), SubResource("Resource_ixoop")])
-metadata/_custom_type_script = "uid://5rcpd6ha7bfx"
-
-[sub_resource type="Resource" id="Resource_4p0xp"]
-script = ExtResource("5_5bjjf")
+dialogs = Array[ExtResource("4_jupo1")]([SubResource("Resource_y38vw"), SubResource("Resource_jupo1"), SubResource("Resource_3yrwc"), SubResource("Resource_oou4r"), SubResource("Resource_28ruv"), SubResource("Resource_kv54q")])
+connections = Array[ExtResource("3_y38vw")]([SubResource("Resource_wlpup"), SubResource("Resource_adxmr"), SubResource("Resource_slit3"), SubResource("Resource_ixoop"), SubResource("Resource_in68u"), SubResource("Resource_dofin")])
 metadata/_custom_type_script = "uid://5rcpd6ha7bfx"
 
 [node name="DialogueTesting" type="Node2D" unique_id=411720287 node_paths=PackedStringArray("dialogue_runtime")]
@@ -103,4 +119,3 @@ base_dialogue_graph = SubResource("Resource_a24fr")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=948849447]
 
 [node name="DialogueRuntime" parent="CanvasLayer" unique_id=475997367 instance=ExtResource("1_j2f88")]
-current_dialogue_graph = SubResource("Resource_4p0xp")

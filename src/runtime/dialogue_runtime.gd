@@ -2,13 +2,17 @@ extends Control
 class_name DialogueRuntime
 
 @export var dialog_box: DialogueBox
+@export var options_container: OptionsInterface
 
 enum STATES{
 	INACTIVE,
 	ACTIVE
 }
 
-var current_state:STATES = STATES.INACTIVE
+var current_state:STATES = STATES.INACTIVE:
+	set(value):
+		current_state = value
+		process_visibility()
 
 @export var current_dialogue_graph:DialogueGraph
 
@@ -28,7 +32,12 @@ var starting_node_index:int
 var dialogue_context:DialogueContext = DialogueContext.new()
 
 func _ready() -> void:
+	current_state = STATES.INACTIVE
 	dialogue_context.dialog_box_interface = dialog_box
+	dialogue_context.options_interface = options_container
+
+func process_visibility()->void:
+	visible = current_state != STATES.INACTIVE
 
 #region dialogue_stack
 func append_to_dialogue_stack(frame:DialogueFrame)->void:
@@ -71,6 +80,8 @@ func end_dialog()->void:
 	clear_maps()
 	current_dialogue_graph = null
 	current_state = STATES.INACTIVE
+	
+	dialogue_context._clear()
 	
 	current_dialogue_node_id = -1
 #endregion

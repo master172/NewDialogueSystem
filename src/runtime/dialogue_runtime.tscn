@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://b3fxcda7u8xw0" path="res://src/runtime/dialogue_runtime.gd" id="1_k2jg8"]
 [ext_resource type="Script" uid="uid://b473faupfhkyk" path="res://src/runtime/connection_parser.gd" id="2_28ruv"]
 [ext_resource type="Script" uid="uid://ddebqc6bxskj4" path="res://src/runtime/dialog_box.gd" id="2_ixoop"]
+[ext_resource type="Script" uid="uid://ccyl53unmh87c" path="res://src/runtime/option_interface.gd" id="2_kv54q"]
+[ext_resource type="PackedScene" uid="uid://dl12c3mgrusxh" path="res://src/components/option.tscn" id="2_mldon"]
 [ext_resource type="Script" uid="uid://86e7k80k7h6q" path="res://src/runtime/text_paginator.gd" id="3_wmnoh"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbnqy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34jt8"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
@@ -14,7 +14,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("dialog_box")]
+[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("dialog_box", "options_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,40 +22,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k2jg8")
-dialog_box = NodePath("MainContainer/MarginContainer/DialogBox")
+dialog_box = NodePath("MainContainer/DialogueContainer/DialogBox")
+options_container = NodePath("MainContainer/OptionsContainer")
 
-[node name="MainContainer" type="VBoxContainer" parent="." unique_id=977935436]
+[node name="MainContainer" type="Control" parent="." unique_id=1425847849]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="VSeparator" type="HSeparator" parent="MainContainer" unique_id=1729576669]
-layout_mode = 2
+[node name="OptionsContainer" type="Control" parent="MainContainer" unique_id=2014024882 node_paths=PackedStringArray("options_list")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
-theme_override_styles/separator = SubResource("StyleBoxFlat_mbnqy")
+script = ExtResource("2_kv54q")
+OPTION = ExtResource("2_mldon")
+options_list = NodePath("OptionsList")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer" unique_id=1663812821]
-layout_mode = 2
+[node name="OptionsList" type="VBoxContainer" parent="MainContainer/OptionsContainer" unique_id=1551659275]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7890625
+anchor_top = 0.6311728
+anchor_right = 0.9618056
+anchor_bottom = 0.6311728
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogueContainer" type="MarginContainer" parent="MainContainer" unique_id=1663812821]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.63117284
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 0.7
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
+metadata/_edit_use_anchors_ = true
 
-[node name="DialogBox" type="Panel" parent="MainContainer/MarginContainer" unique_id=2042653408 node_paths=PackedStringArray("text_box", "text_paginator")]
+[node name="DialogBox" type="Panel" parent="MainContainer/DialogueContainer" unique_id=2042653408 node_paths=PackedStringArray("text_box", "text_paginator")]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_34jt8")
 script = ExtResource("2_ixoop")
 text_box = NodePath("MarginContainer/TextBox")
 text_paginator = NodePath("TextPaginator")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/DialogBox" unique_id=63563409]
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/DialogueContainer/DialogBox" unique_id=63563409]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,20 +94,16 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="TextBox" type="RichTextLabel" parent="MainContainer/MarginContainer/DialogBox/MarginContainer" unique_id=320570298]
+[node name="TextBox" type="RichTextLabel" parent="MainContainer/DialogueContainer/DialogBox/MarginContainer" unique_id=320570298]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
 bbcode_enabled = true
+text = "error"
 scroll_active = false
 
-[node name="TextPaginator" type="Node" parent="MainContainer/MarginContainer/DialogBox" unique_id=55267428]
+[node name="TextPaginator" type="Node" parent="MainContainer/DialogueContainer/DialogBox" unique_id=55267428]
 script = ExtResource("3_wmnoh")
 
 [node name="GraphParser" type="Node" parent="." unique_id=956331755]
