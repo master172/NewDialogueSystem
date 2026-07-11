@@ -5,3 +5,6 @@ var ast_node : ASTNode
 
 func _init(ast_node_ : ASTNode = ASTNode.new(), )->void:
 	ast_node = ast_node_
+
+func accept(visitor:Visitor)->Variant:
+	return visitor.visit_grouping(self)

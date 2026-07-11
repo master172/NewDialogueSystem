@@ -9,3 +9,6 @@ func _init(condition_ : ASTNode = ASTNode.new(), true_branch_ : ASTNode = ASTNod
 	condition = condition_
 	true_branch = true_branch_
 	false_branch = false_branch_
+
+func accept(visitor:Visitor)->Variant:
+	return visitor.visit_ternary(self)

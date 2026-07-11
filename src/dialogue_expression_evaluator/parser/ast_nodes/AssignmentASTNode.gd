@@ -7,3 +7,6 @@ var value : ASTNode
 func _init(identifier_name_ : Token = Token.new(), value_ : ASTNode = ASTNode.new(), )->void:
 	identifier_name = identifier_name_
 	value = value_
+
+func accept(visitor:Visitor)->Variant:
+	return visitor.visit_assignment(self)

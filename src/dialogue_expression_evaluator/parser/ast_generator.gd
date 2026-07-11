@@ -3,6 +3,8 @@ extends EditorScript
 
 var base_line:String = "extends ASTNode"
 
+var force_regenerate:bool = false
+
 var ast_definition:PackedStringArray = [
 	"Binary : left ASTNode, operator Token, right ASTNode",
 	"Grouping : ast_node ASTNode",
@@ -15,8 +17,6 @@ var ast_definition:PackedStringArray = [
 	]
 
 var output_directory:String = "res://src/dialogue_expression_evaluator/parser/ast_nodes/"
-var output_file:String = "ASTNode.gd"
-
 class DefinedAST:
 	var default_map:Dictionary[String,String] = {
 		"ASTNode":"ASTNode.new()",
@@ -44,6 +44,9 @@ class DefinedAST:
 			var function_line:String = "\t"
 			function_line += i + " = " + i + "_\n" 
 			returning_string += function_line
+		
+		returning_string += "\nfunc accept(visitor:Visitor)->Variant:\n"
+		returning_string += "\t" + "return visitor.visit_" + base.to_snake_case() + "(self)\n"
 		return returning_string
 
 func iterate_and_create(list:PackedStringArray)->void:
@@ -51,9 +54,9 @@ func iterate_and_create(list:PackedStringArray)->void:
 		var ast_node:DefinedAST = create_from_string(i)
 		var base_name:String = ast_node.base + "ASTNode.gd"
 		var content:String = ast_node._get_content()
-		if FileAccess.file_exists(output_directory+output_file):
+		if FileAccess.file_exists(output_directory+base_name) and not force_regenerate:
 			print("exsists")
-			return
+			continue
 		var file:FileAccess = FileAccess.open(output_directory + base_name,FileAccess.WRITE)
 		file.store_string(content)
 		file.close()

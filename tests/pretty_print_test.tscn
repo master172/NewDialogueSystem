@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cacif3wqhhqrp"]
+
+[ext_resource type="Script" uid="uid://bs0ga1ll7jhlh" path="res://tests/pretty_print_test.gd" id="1_du8h5"]
+
+[node name="PrettyPrintTest" type="Node2D" unique_id=1318738089]
+script = ExtResource("1_du8h5")

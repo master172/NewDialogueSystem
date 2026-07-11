@@ -9,3 +9,6 @@ func _init(left_ : ASTNode = ASTNode.new(), operator_ : Token = Token.new(), rig
 	left = left_
 	operator = operator_
 	right = right_
+
+func accept(visitor:Visitor)->Variant:
+	return visitor.visit_logical(self)

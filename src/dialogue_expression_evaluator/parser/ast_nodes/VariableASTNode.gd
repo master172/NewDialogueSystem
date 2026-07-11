@@ -5,3 +5,6 @@ var identifier_name : Token
 
 func _init(identifier_name_ : Token = Token.new(), )->void:
 	identifier_name = identifier_name_
+
+func accept(visitor:Visitor)->Variant:
+	return visitor.visit_variable(self)
