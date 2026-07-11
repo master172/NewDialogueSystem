@@ -36,7 +36,7 @@ static func scan_tokens(source:SourceInfo,DERuntime:DialogueExpressionEvaluator)
 		source.start = source.current
 		scan_token(source,returning_tokens,DERuntime)
 	
-	returning_tokens.append(Token.new(DETokenTypes.TokenTypes.EOF,"",null))
+	returning_tokens.append(Token.new(DETokenTypes.TokenTypes.EOF,"",null,source.line))
 	return returning_tokens
 
 static func is_at_end(source:SourceInfo)->bool:
@@ -46,33 +46,33 @@ static func scan_token(source:SourceInfo,returning_tokens:Array[Token],DERuntime
 	var character:String = advance(source)
 	match character:
 		"(":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.LEFT_PAREN))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.LEFT_PAREN)
 		")":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.RIGHT_PAREN))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.RIGHT_PAREN)
 		"{":
 			variable(source,returning_tokens,DERuntime)
 		"+":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.PLUS))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.PLUS)
 		"-":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.MINUS))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.MINUS)
 		"*":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.STAR))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.STAR)
 		"/":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.SLASH))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.SLASH)
 		"%":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.MODULO))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.MODULO)
 		"?":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.TERENARY))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.TERENARY)
 		":":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.COLON))
+			add_token(source,returning_tokens,DETokenTypes.TokenTypes.COLON)
 		"!":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.NOT_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.NOT))
+			add_token(source,returning_tokens,(DETokenTypes.TokenTypes.NOT_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.NOT))
 		"=":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.EQUAL_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.EQUAL))
+			add_token(source,returning_tokens,(DETokenTypes.TokenTypes.EQUAL_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.EQUAL))
 		"<":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.LESSER_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.LESSER))
+			add_token(source,returning_tokens,(DETokenTypes.TokenTypes.LESSER_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.LESSER))
 		">":
-			returning_tokens.append(Token.new(DETokenTypes.TokenTypes.GREATER_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.GREATER))
+			add_token(source,returning_tokens,(DETokenTypes.TokenTypes.GREATER_EQUAL if match_token(source,"=") else DETokenTypes.TokenTypes.GREATER))
 		" ":
 			pass
 		"\r":
@@ -123,10 +123,10 @@ static func string(source:SourceInfo,resulting_tokens:Array[Token],runtime:Dialo
 	
 	advance(source) #this is done to include the closing "
 	var lexme:String = source.source.substr(source.start + 1, (source.current - source.start) - 2)
-	var value:String = source.source.substr(source.start,(source.current - source.start))
-	resulting_tokens.append(Token.new(DETokenTypes.TokenTypes.STRING, value,lexme,source.line))
+	#var value:String = source.source.substr(source.start,(source.current - source.start))
+	add_token(source,resulting_tokens,DETokenTypes.TokenTypes.STRING,lexme)
 
-static func number(source:SourceInfo,returning_tokens:Array[Token],rintime:DialogueExpressionEvaluator)->void:
+static func number(source:SourceInfo,returning_tokens:Array[Token],runtime:DialogueExpressionEvaluator)->void:
 	var is_float:bool = false
 	
 	while is_digit(peek(source)):advance(source)
@@ -138,10 +138,10 @@ static func number(source:SourceInfo,returning_tokens:Array[Token],rintime:Dialo
 	
 	if is_float:
 		var value:float = float(source.source.substr(source.start,(source.current - source.start)))
-		returning_tokens.append(Token.new(DETokenTypes.TokenTypes.FLOAT,str(value),value,source.line))
+		add_token(source,returning_tokens,DETokenTypes.TokenTypes.FLOAT,value)
 	else:
 		var value:int = int(source.source.substr(source.start,(source.current - source.start)))
-		returning_tokens.append(Token.new(DETokenTypes.TokenTypes.INT,str(value),value,source.line))
+		add_token(source,returning_tokens,DETokenTypes.TokenTypes.INT,value)
 
 static func identifier(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
 	while is_alpha_numeric(peek(source)):advance(source)
@@ -150,7 +150,7 @@ static func identifier(source:SourceInfo,returning_tokens:Array[Token],Runtime:D
 	var token_type:DETokenTypes.TokenTypes = DEReserved.get(text,-1)
 	if token_type == -1:
 		token_type = DETokenTypes.TokenTypes.IDENTIFIER
-	returning_tokens.append(Token.new(token_type,text,text,source.line))
+	add_token(source, returning_tokens, token_type, text)
 
 static func variable(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
 	while is_variable_name_allowed(peek(source)):advance(source)
@@ -161,7 +161,7 @@ static func variable(source:SourceInfo,returning_tokens:Array[Token],Runtime:Dia
 	advance(source)
 	var value:String = source.source.substr(source.start + 1,(source.current - source.start)-2)
 	var lexme:String = source.source.substr(source.start, (source.current - source.start))
-	returning_tokens.append(Token.new(DETokenTypes.TokenTypes.VAR,lexme,value,source.line))
+	add_token(source,returning_tokens,DETokenTypes.TokenTypes.VAR,value)
 
 #region numeric helpers
 static func is_digit(c:String)->bool:
@@ -185,3 +185,11 @@ static func variable_allowed(c:String)->bool:
 static func is_variable_name_allowed(c:String)->bool:
 	return is_alpha_numeric(c) or variable_allowed(c)
 #endregion
+
+static func add_token(source:SourceInfo,tokens:Array[Token],type:DETokenTypes.TokenTypes,literal:Variant=null)->void:
+	var lexme:String = source.source.substr(
+		source.start, source.current-source.start
+	)
+	tokens.append(Token.new(
+		type,lexme,literal,source.line
+	))
