@@ -1,17 +1,11 @@
 [gd_scene format=3 uid="uid://bnnopfd2swrk3"]
 
-[ext_resource type="Script" uid="uid://2aavu12njpbi" path="res://src/dialogue_expression_evaluator/lexer.gd" id="1_6wpo5"]
 [ext_resource type="Script" uid="uid://bqcdpbf0na2e7" path="res://tests/expression_evaluator_test.gd" id="1_drh1c"]
-[ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/ExpressionEvaluator.gd" id="3_drh1c"]
+[ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/expression_evaluator.gd" id="3_drh1c"]
 
-[node name="ExpressionEvaluatorTest" type="Node2D" unique_id=714608874 node_paths=PackedStringArray("expression_evaluator_lexer", "dialogue_expression_evaluator")]
+[node name="ExpressionEvaluatorTest" type="Node2D" unique_id=714608874 node_paths=PackedStringArray("dialogue_expression_evaluator")]
 script = ExtResource("1_drh1c")
-expression_evaluator_lexer = NodePath("ExpressionEvaluatorLexer")
 dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
-
-[node name="ExpressionEvaluatorLexer" type="Node" parent="." unique_id=975780957]
-script = ExtResource("1_6wpo5")
-metadata/_custom_type_script = "uid://2aavu12njpbi"
 
 [node name="DialogueExpressionEvaluator" type="Node" parent="." unique_id=229015767]
 script = ExtResource("3_drh1c")

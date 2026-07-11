@@ -23,13 +23,13 @@ class SourceInfo:
 
 
 
-func lex(input:String,DERuntime:DialogueExpressionEvaluator)->Array[Token]:
+static func lex(input:String,DERuntime:DialogueExpressionEvaluator)->Array[Token]:
 	var source:SourceInfo = SourceInfo.new(input)
 	var returning_tokens:Array[Token] = []
 	returning_tokens = scan_tokens(source,DERuntime)
 	return returning_tokens
 
-func scan_tokens(source:SourceInfo,DERuntime:DialogueExpressionEvaluator)->Array[Token]:
+static func scan_tokens(source:SourceInfo,DERuntime:DialogueExpressionEvaluator)->Array[Token]:
 	var returning_tokens:Array[Token] = []
 	while !is_at_end(source):
 		#at the beginning of the next lexme
@@ -39,10 +39,10 @@ func scan_tokens(source:SourceInfo,DERuntime:DialogueExpressionEvaluator)->Array
 	returning_tokens.append(Token.new(DETokenTypes.TokenTypes.EOF,"",null))
 	return returning_tokens
 
-func is_at_end(source:SourceInfo)->bool:
+static func is_at_end(source:SourceInfo)->bool:
 	return source.current >= source.source.length()
 
-func scan_token(source:SourceInfo,returning_tokens:Array[Token],DERuntime:DialogueExpressionEvaluator)->void:
+static func scan_token(source:SourceInfo,returning_tokens:Array[Token],DERuntime:DialogueExpressionEvaluator)->void:
 	var character:String = advance(source)
 	match character:
 		"(":
@@ -93,26 +93,26 @@ func scan_token(source:SourceInfo,returning_tokens:Array[Token],DERuntime:Dialog
 				push_error("unidentified token type")
 				DERuntime.throw_error(source.line,"Unexpected character")
 
-func advance(source:SourceInfo)->String:
+static func advance(source:SourceInfo)->String:
 	source.current += 1
 	return source.source[source.current-1]
 
-func match_token(source:SourceInfo,expected:String)->bool:
+static func match_token(source:SourceInfo,expected:String)->bool:
 	if is_at_end(source):return false
 	if (source.source[source.current] != expected): return false
 	
 	source.current += 1
 	return true
 
-func peek(source:SourceInfo)->String:
+static func peek(source:SourceInfo)->String:
 	if is_at_end(source):return ""
 	return source.source[source.current]
 
-func peek_next(source:SourceInfo)->String:
+static func peek_next(source:SourceInfo)->String:
 	if source.current + 1 >= source.source.length():return ""
 	return source.source[source.current + 1]
 
-func string(source:SourceInfo,resulting_tokens:Array[Token],runtime:DialogueExpressionEvaluator)->void:
+static func string(source:SourceInfo,resulting_tokens:Array[Token],runtime:DialogueExpressionEvaluator)->void:
 	while (!is_at_end(source) and peek(source) != '"'):
 		if peek(source) == "\n": source.line += 1
 		advance(source)
@@ -126,7 +126,7 @@ func string(source:SourceInfo,resulting_tokens:Array[Token],runtime:DialogueExpr
 	var value:String = source.source.substr(source.start,(source.current - source.start))
 	resulting_tokens.append(Token.new(DETokenTypes.TokenTypes.STRING, value,lexme,source.line))
 
-func number(source:SourceInfo,returning_tokens:Array[Token],rintime:DialogueExpressionEvaluator)->void:
+static func number(source:SourceInfo,returning_tokens:Array[Token],rintime:DialogueExpressionEvaluator)->void:
 	var is_float:bool = false
 	
 	while is_digit(peek(source)):advance(source)
@@ -143,7 +143,7 @@ func number(source:SourceInfo,returning_tokens:Array[Token],rintime:DialogueExpr
 		var value:int = int(source.source.substr(source.start,(source.current - source.start)))
 		returning_tokens.append(Token.new(DETokenTypes.TokenTypes.INT,str(value),value,source.line))
 
-func identifier(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
+static func identifier(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
 	while is_alpha_numeric(peek(source)):advance(source)
 	
 	var text:String = source.source.substr(source.start,(source.current - source.start))
@@ -152,7 +152,7 @@ func identifier(source:SourceInfo,returning_tokens:Array[Token],Runtime:Dialogue
 		token_type = DETokenTypes.TokenTypes.IDENTIFIER
 	returning_tokens.append(Token.new(token_type,text,text,source.line))
 
-func variable(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
+static func variable(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueExpressionEvaluator)->void:
 	while is_variable_name_allowed(peek(source)):advance(source)
 	if peek(source) != "}":
 		Runtime.throw_error(source.line,"Unterminated variable identifier")
@@ -164,24 +164,24 @@ func variable(source:SourceInfo,returning_tokens:Array[Token],Runtime:DialogueEx
 	returning_tokens.append(Token.new(DETokenTypes.TokenTypes.VAR,lexme,value,source.line))
 
 #region numeric helpers
-func is_digit(c:String)->bool:
+static func is_digit(c:String)->bool:
 	if c.is_empty():
 		return false
 	var ascii:int = ord(c)
 	return ascii >= 48 and ascii <= 57
 
-func is_alpha(c:String)->bool:
+static func is_alpha(c:String)->bool:
 	if c.is_empty():
 		return false
 	var value:int  = ord(c)
 	return value >= ord('a') and value <= ord('z') or value >= ord('A') and value <= ord('Z') or value == ord("_")
 
-func is_alpha_numeric(c:String)->bool:
+static func is_alpha_numeric(c:String)->bool:
 	return is_alpha(c) or is_digit(c)
 
-func variable_allowed(c:String)->bool:
+static func variable_allowed(c:String)->bool:
 	return ord(c) == ord("$") or ord(c) == ord(".")
 
-func is_variable_name_allowed(c:String)->bool:
+static func is_variable_name_allowed(c:String)->bool:
 	return is_alpha_numeric(c) or variable_allowed(c)
 #endregion
