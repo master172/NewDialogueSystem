@@ -49,11 +49,65 @@ static func throw_error(source:SourcePackage,token:Token,message:String)->void:
 
 static func parse(tokens:Array[Token],runtime:DialogueExpressionEvaluator)->ASTNode:
 	var source_package:SourcePackage=SourcePackage.new(tokens,0,runtime)
-	return expression(source_package)
-
+	var result:ASTNode = expression(source_package)
+	
+	if !is_at_end(source_package):
+		throw_error(source_package,peek(source_package),"Expected end of expression")
+	
+	return result
+	
 static func expression(source:SourcePackage)->ASTNode:
-	return equality(source)
+	return assignment(source)
 
+static func assignment(source:SourcePackage)->ASTNode:
+	var expr:ASTNode = ternary(source)
+	
+	if match_token([DETokenTypes.TokenTypes.EQUAL],source):
+		var value:ASTNode = assignment(source)
+		
+		if expr is VariableASTNode:
+			return AssignmentASTNode.new(expr.identifier_name,value)
+		
+		throw_error(source, previous(source), "Invalid assignment target.")
+	return expr
+
+static func ternary(source:SourcePackage)->ASTNode:
+	var expr:ASTNode = logical_or(source)
+	
+	while match_token([DETokenTypes.TokenTypes.TERENARY],source):
+		var true_branch:ASTNode = expression(source)
+		consume(
+			DETokenTypes.TokenTypes.COLON,
+			"Expected ':' after true branch of ternary expression",
+			source 
+		)
+		
+		var false_branch:ASTNode = expression(source)
+		expr = TernaryASTNode.new(expr,true_branch,false_branch)
+		
+	
+	return expr
+
+static func logical_or(source:SourcePackage)->ASTNode:
+	var expr:ASTNode = logical_and(source)
+	
+	while match_token([DETokenTypes.TokenTypes.OR],source):
+		var operator :Token = previous(source)
+		var right:ASTNode = logical_and(source)
+		expr = LogicalASTNode.new(expr,operator,right)
+	
+	return expr
+
+static func logical_and(source:SourcePackage)->ASTNode:
+	var expr:ASTNode = equality(source)
+	
+	while match_token([DETokenTypes.TokenTypes.AND],source):
+		var operator :Token = previous(source)
+		var right:ASTNode = equality(source)
+		expr = LogicalASTNode.new(expr,operator,right)
+
+	return expr
+	
 static func equality(source:SourcePackage)->ASTNode:
 	var expr:ASTNode = comparison(source)
 	
@@ -90,7 +144,7 @@ static func factor(source:SourcePackage)->ASTNode:
 	
 	while match_token([DETokenTypes.TokenTypes.SLASH,DETokenTypes.TokenTypes.STAR],source):
 		var operator:Token = previous(source)
-		var right:UnaryASTNode = unary(source)
+		var right:ASTNode = unary(source)
 		expr = BinaryASTNode.new(expr,operator,right)
 	
 	return expr
@@ -100,7 +154,7 @@ static func unary(source:SourcePackage)->ASTNode:
 	
 	if match_token([DETokenTypes.TokenTypes.NOT, DETokenTypes.TokenTypes.MINUS],source):
 		var operator:Token = previous(source)
-		var right:UnaryASTNode = unary(source)
+		var right:ASTNode = unary(source)
 		returning_token = UnaryASTNode.new(operator,right)
 		return returning_token
 		
@@ -117,6 +171,8 @@ static func primary(source:SourcePackage)->ASTNode:
 		var expr:ASTNode = expression(source)
 		consume(DETokenTypes.TokenTypes.RIGHT_PAREN,"expected ')' after expression",source)
 		return GroupingASTNode.new(expr)
+	if match_token([DETokenTypes.TokenTypes.VAR],source):
+		return VariableASTNode.new(previous(source))
 	else:
 		throw_error(source,peek(source),"Expeceted expression.")
 		return null

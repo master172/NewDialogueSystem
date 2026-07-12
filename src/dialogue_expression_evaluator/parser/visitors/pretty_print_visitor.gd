@@ -29,7 +29,7 @@ func visit_unary(node:UnaryASTNode)->String:
 	return parenthesize(node.operator._lexme, [node.right])
 
 func visit_variable(node:VariableASTNode)->String:
-	return "{%s}" % node.identifier_name._lexme
+	return "(%s)" % node.identifier_name._lexme
 
 func visit_assignment(node:AssignmentASTNode)->String:
 	return parenthesize("= " + node.identifier_name._lexme,[node.value])

@@ -6,6 +6,7 @@
 [node name="ExpressionEvaluatorTest" type="Node2D" unique_id=714608874 node_paths=PackedStringArray("dialogue_expression_evaluator")]
 script = ExtResource("1_drh1c")
 dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
+message = "true ? false ? 1 : 2 : 3"
 
 [node name="DialogueExpressionEvaluator" type="Node" parent="." unique_id=229015767]
 script = ExtResource("3_drh1c")
