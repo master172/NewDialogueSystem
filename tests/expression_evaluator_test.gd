@@ -2,11 +2,13 @@ extends Node2D
 
 @export var dialogue_expression_evaluator: DialogueExpressionEvaluator
 
+var result:ASTNode
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(ExpressionEvaluatorLexer.lex('{player.gold} <= 500 and {player.guild.thives_guild.joined} == false ? "you ar rich" : "you are broke"',dialogue_expression_evaluator))
-
-
+	var tokens:Array[Token] = ExpressionEvaluatorLexer.lex("5 + 10 <= 7-1",dialogue_expression_evaluator)
+	result = DEParser.parse(tokens,dialogue_expression_evaluator)
+	var printer:PrettyPrintVisitor = PrettyPrintVisitor.new()
+	printer.visit(result)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
