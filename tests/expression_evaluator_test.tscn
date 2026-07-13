@@ -10,6 +10,7 @@ script = ExtResource("1_drh1c")
 dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
 dialogue_variable_interface = NodePath("DialogueVariableInterface")
 de_evaluator = NodePath("DEEvaluator")
+message = " 10 % 3"
 
 [node name="DialogueExpressionEvaluator" type="Node" parent="." unique_id=229015767 node_paths=PackedStringArray("variable_interface")]
 script = ExtResource("3_drh1c")

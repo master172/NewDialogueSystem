@@ -59,6 +59,12 @@ func visit_binary(node:BinaryASTNode)->Variant:
 			return left - right
 		DETokenTypes.TokenTypes.PLUS:
 			return handle_addition(left,right,node.operator)
+		DETokenTypes.TokenTypes.MODULO:
+			check_number_operands(node.operator,left,right)
+			if right == 0:
+				push_error("error divison by zero")
+				assert(false, "divisor cannot be zero")
+			return left % right
 		DETokenTypes.TokenTypes.SLASH:
 			check_number_operands(node.operator,left,right)
 			if right == 0:

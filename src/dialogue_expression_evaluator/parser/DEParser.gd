@@ -143,7 +143,7 @@ static func term(source:SourcePackage)->ASTNode:
 static func factor(source:SourcePackage)->ASTNode:
 	var expr:ASTNode = unary(source)
 	
-	while match_token([DETokenTypes.TokenTypes.SLASH,DETokenTypes.TokenTypes.STAR],source):
+	while match_token([DETokenTypes.TokenTypes.SLASH,DETokenTypes.TokenTypes.STAR,DETokenTypes.TokenTypes.MODULO],source):
 		var operator:Token = previous(source)
 		var right:ASTNode = unary(source)
 		expr = BinaryASTNode.new(expr,operator,right)
