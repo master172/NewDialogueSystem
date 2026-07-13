@@ -5,7 +5,7 @@ var dialog_box_interface:DialogueTextBoxInterface
 var options_interface:DialogueOptionsInterface
 var event_interface:DialogueEventInterface
 var variable_interface:DialogueVariableInterface
-
+var expression_interface:DialogueExpressionInterface
 
 func _clear()->void:
 	dialog_box_interface.clear()

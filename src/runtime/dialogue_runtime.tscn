@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dl12c3mgrusxh" path="res://src/components/option.tscn" id="2_mldon"]
 [ext_resource type="Script" uid="uid://00ogiiotw4m3" path="res://src/runtime/event_interface.gd" id="5_mldon"]
 [ext_resource type="Script" uid="uid://cync5bdnklvtd" path="res://auxiliarry_systems/event_bus.gd" id="6_kv54q"]
+[ext_resource type="Script" uid="uid://dftq1ftjsoeam" path="res://src/runtime/expression_interface.gd" id="8_dofin"]
+[ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/expression_evaluator.gd" id="9_t8sqj"]
+[ext_resource type="Script" uid="uid://d3ojvsud7670m" path="res://src/dialogue_expression_evaluator/evaluator/DEEvaluator.gd" id="10_u26y0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34jt8"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
@@ -15,7 +18,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("event_bus", "dialog_box", "options_container", "event_interface", "variable_interface")]
+[node name="DialogueRuntime" type="Control" unique_id=475997367 node_paths=PackedStringArray("event_bus", "dialog_box", "options_container", "event_interface", "variable_interface", "expression_interface")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +31,7 @@ dialog_box = NodePath("MainContainer/DialogueContainer/DialogBox")
 options_container = NodePath("MainContainer/OptionsContainer")
 event_interface = NodePath("EventInterface")
 variable_interface = NodePath("VariableInterface")
+expression_interface = NodePath("ExpressionInterface")
 
 [node name="VariableInterface" type="Node" parent="." unique_id=2058994109]
 script = ExtResource("2_in68u")
@@ -116,3 +120,17 @@ event_bus = NodePath("EventBus")
 [node name="EventBus" type="Node" parent="EventInterface" unique_id=771485399]
 script = ExtResource("6_kv54q")
 metadata/_custom_type_script = "uid://cync5bdnklvtd"
+
+[node name="ExpressionInterface" type="Node" parent="." unique_id=115591866 node_paths=PackedStringArray("dialogue_expression_evaluator", "de_evaluator")]
+script = ExtResource("8_dofin")
+dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
+de_evaluator = NodePath("DEEvaluator")
+
+[node name="DialogueExpressionEvaluator" type="Node" parent="ExpressionInterface" unique_id=1712188086 node_paths=PackedStringArray("variable_interface")]
+script = ExtResource("9_t8sqj")
+variable_interface = NodePath("../../VariableInterface")
+metadata/_custom_type_script = "uid://cwaxatpba6s8c"
+
+[node name="DEEvaluator" type="Node" parent="ExpressionInterface" unique_id=892546741]
+script = ExtResource("10_u26y0")
+metadata/_custom_type_script = "uid://d3ojvsud7670m"

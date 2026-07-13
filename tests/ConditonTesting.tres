@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="DialogueGraph" format=3 uid="uid://dg8w5gpqwwxj0"]
+
+[ext_resource type="Script" uid="uid://kmkx5sr24rw0" path="res://src/script_templates/runtime_resources/dialogue_connection.gd" id="1_dekj5"]
+[ext_resource type="Script" uid="uid://ca4cj7ke8toq5" path="res://src/script_templates/dialogue_nodes/base_dialogue_node.gd" id="2_u5jvh"]
+[ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_hu13m"]
+[ext_resource type="Script" uid="uid://ium3rjdwxfih" path="res://src/script_templates/dialogue_nodes/flow_nodes/dialogue_conditon_node.gd" id="4_1im5b"]
+[ext_resource type="Script" uid="uid://dwhuptrc5ag4b" path="res://src/script_templates/dialogue_nodes/flow_nodes/dialogue_expression_node.gd" id="4_u5jvh"]
+[ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="5_cnq2p"]
+[ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="6_bflv4"]
+[ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="7_au1mv"]
+
+[sub_resource type="Resource" id="Resource_a24fr"]
+script = ExtResource("1_dekj5")
+to_id = 5
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_adxmr"]
+script = ExtResource("1_dekj5")
+from_id = 1
+to_id = 2
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_3yrwc"]
+script = ExtResource("1_dekj5")
+from_id = 1
+from_port = 1
+to_id = 3
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_slit3"]
+script = ExtResource("1_dekj5")
+from_id = 2
+to_id = 4
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_oou4r"]
+script = ExtResource("1_dekj5")
+from_id = 3
+to_id = 4
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_u5jvh"]
+script = ExtResource("1_dekj5")
+from_id = 5
+to_id = 1
+metadata/_custom_type_script = "uid://kmkx5sr24rw0"
+
+[sub_resource type="Resource" id="Resource_u26y0"]
+script = ExtResource("3_hu13m")
+metadata/_custom_type_script = "uid://7qj2hmgyvpgm"
+
+[sub_resource type="Resource" id="Resource_4p0xp"]
+script = ExtResource("4_u5jvh")
+expression = "{main_val} = 1"
+id = 5
+metadata/_custom_type_script = "uid://dwhuptrc5ag4b"
+
+[sub_resource type="Resource" id="Resource_grr8i"]
+script = ExtResource("4_1im5b")
+conditon = "{main_val} == 10"
+id = 1
+metadata/_custom_type_script = "uid://ium3rjdwxfih"
+
+[sub_resource type="Resource" id="Resource_5bjjf"]
+script = ExtResource("5_cnq2p")
+text = "Text1 main_val was true"
+id = 2
+metadata/_custom_type_script = "uid://ce2qfikhk5avg"
+
+[sub_resource type="Resource" id="Resource_wlpup"]
+script = ExtResource("5_cnq2p")
+text = "Text2 main_val was false"
+id = 3
+metadata/_custom_type_script = "uid://ce2qfikhk5avg"
+
+[sub_resource type="Resource" id="Resource_xjs6x"]
+script = ExtResource("6_bflv4")
+id = 4
+metadata/_custom_type_script = "uid://cv6pccyh4t72n"
+
+[resource]
+script = ExtResource("7_au1mv")
+dialogs = Array[ExtResource("2_u5jvh")]([SubResource("Resource_u26y0"), SubResource("Resource_4p0xp"), SubResource("Resource_grr8i"), SubResource("Resource_5bjjf"), SubResource("Resource_wlpup"), SubResource("Resource_xjs6x")])
+connections = Array[ExtResource("1_dekj5")]([SubResource("Resource_a24fr"), SubResource("Resource_adxmr"), SubResource("Resource_3yrwc"), SubResource("Resource_slit3"), SubResource("Resource_oou4r"), SubResource("Resource_u5jvh")])
+metadata/_custom_type_script = "uid://5rcpd6ha7bfx"

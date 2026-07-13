@@ -11,6 +11,7 @@ signal dialogue_finished(dialogue:DialogueGraph)
 @export var options_container: DialogueOptionsInterface
 @export var event_interface: DialogueEventInterface
 @export var variable_interface: DialogueVariableInterface
+@export var expression_interface: DialogueExpressionInterface
 
 enum STATES{
 	INACTIVE,
@@ -48,6 +49,7 @@ func _ready() -> void:
 	dialogue_context.options_interface = options_container
 	dialogue_context.event_interface = event_interface
 	dialogue_context.variable_interface = variable_interface
+	dialogue_context.expression_interface = expression_interface
 	
 func process_visibility()->void:
 	if current_state == STATES.INACTIVE: visible = false
