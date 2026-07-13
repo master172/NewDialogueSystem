@@ -37,14 +37,15 @@ static func match_token(types:Array[DETokenTypes.TokenTypes],source:SourcePackag
 	
 	return false
 
-static func consume(type:DETokenTypes.TokenTypes,message:String,source:SourcePackage)->void:
+static func consume(type:DETokenTypes.TokenTypes,message:String,source:SourcePackage)->Token:
 	if check(type,source):return advance(source)
 	throw_error(source,peek(source),message)
+	return null
 	
 static func throw_error(source:SourcePackage,token:Token,message:String)->void:
 	source.runtime.error(token,message)
 	push_error(peek(source),message)
-	assert(false)
+	assert(false, message)
 #endregion
 
 static func parse(tokens:Array[Token],runtime:DialogueExpressionEvaluator)->ASTNode:

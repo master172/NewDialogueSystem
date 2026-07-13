@@ -2,12 +2,29 @@
 
 [ext_resource type="Script" uid="uid://bqcdpbf0na2e7" path="res://tests/expression_evaluator_test.gd" id="1_drh1c"]
 [ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/expression_evaluator.gd" id="3_drh1c"]
+[ext_resource type="Script" uid="uid://lntjjdet2rvp" path="res://src/runtime/variable_interface.gd" id="3_sm23o"]
+[ext_resource type="Script" uid="uid://d3ojvsud7670m" path="res://src/dialogue_expression_evaluator/evaluator/DEEvaluator.gd" id="4_sm23o"]
 
-[node name="ExpressionEvaluatorTest" type="Node2D" unique_id=714608874 node_paths=PackedStringArray("dialogue_expression_evaluator")]
+[node name="ExpressionEvaluatorTest" type="Node2D" unique_id=714608874 node_paths=PackedStringArray("dialogue_expression_evaluator", "dialogue_variable_interface", "de_evaluator")]
 script = ExtResource("1_drh1c")
 dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
-message = "true ? false ? 1 : 2 : 3"
+dialogue_variable_interface = NodePath("DialogueVariableInterface")
+de_evaluator = NodePath("DEEvaluator")
 
-[node name="DialogueExpressionEvaluator" type="Node" parent="." unique_id=229015767]
+[node name="DialogueExpressionEvaluator" type="Node" parent="." unique_id=229015767 node_paths=PackedStringArray("variable_interface")]
 script = ExtResource("3_drh1c")
+variable_interface = NodePath("../DialogueVariableInterface")
 metadata/_custom_type_script = "uid://cwaxatpba6s8c"
+
+[node name="DialogueVariableInterface" type="Node" parent="." unique_id=1056996116]
+script = ExtResource("3_sm23o")
+variables = Dictionary[String, Variant]({
+"player": {
+"gold": 501
+}
+})
+metadata/_custom_type_script = "uid://lntjjdet2rvp"
+
+[node name="DEEvaluator" type="Node" parent="." unique_id=631603817]
+script = ExtResource("4_sm23o")
+metadata/_custom_type_script = "uid://d3ojvsud7670m"

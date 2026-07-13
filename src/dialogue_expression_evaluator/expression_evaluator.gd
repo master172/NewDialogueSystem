@@ -1,6 +1,7 @@
 extends Node
 class_name DialogueExpressionEvaluator
 
+@export var variable_interface:DialogueVariableInterface
 var had_error:bool = false
 
 func throw_error(line:int, message:String)->void:
