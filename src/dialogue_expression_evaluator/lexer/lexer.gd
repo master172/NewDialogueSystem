@@ -6,6 +6,7 @@ static var DEReserved:Dictionary[String,DETokenTypes.TokenTypes] = {
 	"or":DETokenTypes.TokenTypes.OR,
 	"true":DETokenTypes.TokenTypes.TRUE,
 	"false":DETokenTypes.TokenTypes.FALSE,
+	"del":DETokenTypes.TokenTypes.DEL
 	#"null":DETokenTypes.TokenTypes.NULL,
 }
 

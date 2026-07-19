@@ -84,15 +84,25 @@ func visit_literal(node:LiteralASTNode)->Variant:
 	return node.value
 
 func visit_unary(node:UnaryASTNode)->Variant:
-	var right:Variant = evaluate(node.right)
+	
 	
 	match node.operator._type:
 		DETokenTypes.TokenTypes.MINUS:
+			var right:Variant = evaluate(node.right)
 			check_number_operand(node.operator, right)
 			return -right
 		DETokenTypes.TokenTypes.NOT:
+			var right:Variant = evaluate(node.right)
 			return !is_truth(right)
-	
+		DETokenTypes.TokenTypes.DEL:
+			if !node.right is VariableASTNode:
+				push_error("expected variable after del")
+				assert(false)
+			
+			var variable:VariableASTNode = node.right as VariableASTNode
+			return runtime.variable_interface.erase_from_dictionary(
+				variable.identifier_name._literal
+			)
 	return null
 	
 

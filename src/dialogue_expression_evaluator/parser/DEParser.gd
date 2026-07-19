@@ -153,7 +153,7 @@ static func factor(source:SourcePackage)->ASTNode:
 static func unary(source:SourcePackage)->ASTNode:
 	var returning_token:UnaryASTNode
 	
-	if match_token([DETokenTypes.TokenTypes.NOT, DETokenTypes.TokenTypes.MINUS],source):
+	if match_token([DETokenTypes.TokenTypes.NOT, DETokenTypes.TokenTypes.MINUS,DETokenTypes.TokenTypes.DEL],source):
 		var operator:Token = previous(source)
 		var right:ASTNode = unary(source)
 		returning_token = UnaryASTNode.new(operator,right)

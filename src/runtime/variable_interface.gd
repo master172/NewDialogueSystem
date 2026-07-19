@@ -30,23 +30,30 @@ func write_to_dictionary(input:String,value:Variant)->void:
 func get_from_dictionary(input:String)->Variant:
 	var path:PackedStringArray = input.split(".")
 	var pointer:Dictionary = variables
+	var result :Variant = null
 	
 	if path.is_empty():
 		push_error("empty path provided")
 		return
 	
 	if path.size() == 1:
-		return variables.get(path[0],null)
-		
+		result = variables.get(path[0],null)
+		if not result:
+			push_error("error value not found in dictionary",path)
+		return result
+			
 	for i:int in path.size() -1:
 		if not pointer.has(path[i]):
-			push_error("Invalid Path")
+			push_error("Invalid Path", path)
 			return null
 		pointer = pointer[path[i]]
 	
 	var last:int = path.size() -1
 	var key:String = path[last]
-	return pointer.get(key,null)
+	result = pointer.get(key,null)
+	if not result:
+		push_error("error value not found in dictionary",path)
+	return result
 
 func has_in_dictionary(input:String)->bool:
 	var path:PackedStringArray = input.split(".")

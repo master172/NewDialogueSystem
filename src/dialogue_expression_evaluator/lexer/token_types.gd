@@ -21,5 +21,5 @@ enum TokenTypes {
 	AND,OR,NOT,
 	
 	#keywords
-	NULL, EOF, TRUE, FALSE
+	NULL, EOF, TRUE, FALSE, DEL
 }
