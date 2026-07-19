@@ -16,17 +16,25 @@ func _enter(context:DialogueContext)->void:
 	
 	context.options_interface.display_options(_build_options(options,context))
 
-func _build_options(given_options:Array[DialogueOptionResource],context:DialogueContext)->PackedStringArray:
+func _build_options(given_options:Array[DialogueOptionResource],context:DialogueContext)->Array[UIOptionResource]:
 	_visible_options.clear()
-	var resulting_options:PackedStringArray
+	var resulting_options:Array[UIOptionResource]
 	for i:int in given_options.size():
 		if not given_options[i].visible_condition.is_empty() and not context.expression_interface.evaluate(given_options[i].visible_condition):
 			continue
-		resulting_options.append(VariableParser.replace_symbols(given_options[i].text,context.variable_interface))
+		resulting_options.append(create_option_resource(given_options[i],context))
 		_visible_options.append(i)
 	
 	return resulting_options
-	
+
+func create_option_resource(option:DialogueOptionResource,context:DialogueContext)->UIOptionResource:
+	var returning_option:UIOptionResource = UIOptionResource.new()
+	returning_option.text = VariableParser.replace_symbols(option.text,context.variable_interface)
+	if not option.disabled_condtion.is_empty():
+		returning_option.disabled = context.expression_interface.evaluate(option.disabled_condtion)
+	else:
+		returning_option.disabled = false
+	return returning_option
 
 func _exit(context:DialogueContext)->void:
 	if context.options_interface.option_selected.is_connected(option_selected):

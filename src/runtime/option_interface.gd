@@ -28,16 +28,16 @@ func process_visibility()->void:
 	if current_state == STATES.IDLE: visible = false
 	else: visible = true
 
-func add_option(option:String)->void:
+func add_option(option:UIOptionResource)->void:
 	var option_scene:DialogueOption = OPTION.instantiate()
 	option_scene.setup_option(option)
 	options_list.add_child(option_scene)
-
-func display_options(options:PackedStringArray)->void:
+	
+func display_options(options:Array[UIOptionResource])->void:
 	if options.is_empty():
 		push_error("option array empty")
 		return
-	for i:String in options:
+	for i:UIOptionResource in options:
 		add_option(i)
 	setup_options_state(options)
 	current_state = STATES.PROCESSING
@@ -68,8 +68,14 @@ func _input(event: InputEvent) -> void:
 		current_selected = (current_selected + 1) % max_selected
 		update_option_display(true)
 	if event.is_action_pressed("ui_accept"):
-		option_selected.emit(current_selected)
+		process_selected(current_selected)
 		#print("selected option: ",current_selected)
+
+func process_selected(selected:int)->void:
+	if (options_list.get_child(selected) as DialogueOption).disabled == true:
+		return
+	option_selected.emit(selected)
+
 func stop_processing()->void:
 	max_selected = 0
 	current_selected = -1
