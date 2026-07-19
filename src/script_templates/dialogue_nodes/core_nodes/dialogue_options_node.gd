@@ -6,7 +6,7 @@ var _selected_option:int = -1
 
 #TODO instead of passing plain text pass resources that can hold stuff like disabled,
 #icons etc
-@export var options:PackedStringArray = []
+@export var options:Array[DialogueOptionResource] = []
 
 var _visible_options:PackedInt32Array = []
 
@@ -16,11 +16,13 @@ func _enter(context:DialogueContext)->void:
 	
 	context.options_interface.display_options(_build_options(options,context))
 
-func _build_options(options:PackedStringArray,context:DialogueContext)->PackedStringArray:
+func _build_options(given_options:Array[DialogueOptionResource],context:DialogueContext)->PackedStringArray:
 	_visible_options.clear()
 	var resulting_options:PackedStringArray
-	for i:int in options.size():
-		resulting_options.append(VariableParser.replace_symbols(options[i],context.variable_interface))
+	for i:int in given_options.size():
+		if not given_options[i].visible_condition.is_empty() and not context.expression_interface.evaluate(given_options[i].visible_condition):
+			continue
+		resulting_options.append(VariableParser.replace_symbols(given_options[i].text,context.variable_interface))
 		_visible_options.append(i)
 	
 	return resulting_options

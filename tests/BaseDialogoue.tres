@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_vf5b6"]
 [ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="4_6hile"]
 [ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="5_dslwn"]
+[ext_resource type="Script" uid="uid://cygu50gsf0nyi" path="res://src/script_templates/transaction_resources/dialogue_option_resource.gd" id="6_8sfvu"]
 [ext_resource type="Script" uid="uid://b6efois10qsd0" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_options_node.gd" id="6_673p7"]
 [ext_resource type="Script" uid="uid://cqifhr1yddokl" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_event_node.gd" id="7_4vfop"]
 [ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="8_8tewu"]
@@ -105,9 +106,19 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
 id = 4
 metadata/_custom_type_script = "uid://ce2qfikhk5avg"
 
+[sub_resource type="Resource" id="Resource_t8sqj"]
+script = ExtResource("6_8sfvu")
+text = "Etiam"
+metadata/_custom_type_script = "uid://cygu50gsf0nyi"
+
+[sub_resource type="Resource" id="Resource_4p0xp"]
+script = ExtResource("6_8sfvu")
+text = "Nullam"
+metadata/_custom_type_script = "uid://cygu50gsf0nyi"
+
 [sub_resource type="Resource" id="Resource_kv54q"]
 script = ExtResource("6_673p7")
-options = ["Etiam {$player.name}", "Nullam {$player.name}"]
+options = Array[ExtResource("6_8sfvu")]([SubResource("Resource_t8sqj"), SubResource("Resource_4p0xp")])
 id = 5
 metadata/_custom_type_script = "uid://b6efois10qsd0"
 
