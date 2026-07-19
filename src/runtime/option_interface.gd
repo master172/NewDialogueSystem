@@ -42,7 +42,7 @@ func display_options(options:Array[UIOptionResource])->void:
 	setup_options_state(options)
 	current_state = STATES.PROCESSING
 
-func setup_options_state(options:PackedStringArray)->void:
+func setup_options_state(options:Array[UIOptionResource])->void:
 	max_selected = options.size()
 	current_selected = 0
 	
