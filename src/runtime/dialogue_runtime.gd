@@ -2,6 +2,7 @@ extends Control
 class_name DialogueRuntime
 
 signal dialogue_finished(dialogue:DialogueGraph)
+signal dialogue_sequence_finished
 
 @export_group("public_interfaces")
 @export var event_bus: EventBus
@@ -24,20 +25,7 @@ var current_state:STATES = STATES.INACTIVE:
 		process_visibility()
 
 @export_group("dialogue")
-@export var current_dialogue_graph:DialogueGraph
-
-var dialogue_grpah_stack:Array[DialogueFrame] = []
-
-var current_dialogue_node_id:int
-
-var connection_map:Dictionary[Vector2i,Vector2i] = {
-	
-}
-var graph_map:Dictionary[int,BaseDialogueNode] = {
-	
-}
-
-var starting_node_index:int
+@export var dialogue_grpah_stack:Array[DialogueFrame] = []
 
 var dialogue_context:DialogueContext = DialogueContext.new()
 
@@ -60,49 +48,42 @@ func append_to_dialogue_stack(frame:DialogueFrame)->void:
 
 func remove_from_dialogue_stack()->void:
 	dialogue_grpah_stack.pop_back()
+
+func get_current_dialogue_graph()->DialogueFrame:
+	return dialogue_grpah_stack.back()
 #endregion
 
-#region graph_mapping
-func set_maps(dialogue_graph:DialogueGraph)->void:
-	parse_connections(dialogue_graph)
-	parse_map(dialogue_graph)
 
-func clear_maps()->void:
-	connection_map.clear()
-	graph_map.clear()
-	starting_node_index = -1
-
-func parse_connections(dialogue_graph:DialogueGraph)->void:
-	connection_map = DialogueGraphParser.parse_connections(dialogue_graph.connections)
-
-func parse_map(dialogue_graph:DialogueGraph)->void:
-	var reuslt:GraphParseResult = DialogueGraphParser.parse_graph(dialogue_graph.dialogs)
-	graph_map = reuslt.graph
-	starting_node_index = reuslt.starting_node_id
-#endregion
 
 #region dailog_control
 func start_dialog(dialogue_graph:DialogueGraph)->void:
-	set_maps(dialogue_graph)
-	current_dialogue_graph = dialogue_graph
+	var frame:DialogueFrame = DialogueFrame.new(dialogue_graph)
+	frame.build_maps()
+	frame.current_node_index = frame.starting_node_index
+	dialogue_grpah_stack.append(frame)
+	
 	current_state = STATES.ACTIVE
 	
-	current_dialogue_node_id = starting_node_index
-	
-	graph_map[starting_node_index]._enter(dialogue_context)
+	frame.graph_map[frame.starting_node_index]._enter(dialogue_context)
 
 func end_dialog()->void:
-	clear_maps()
-	current_state = STATES.INACTIVE
+	var frame:DialogueFrame = get_current_dialogue_graph()
+	frame.graph_map[frame.current_node_index]._exit(dialogue_context)
 	
-	dialogue_context._clear()
-	
-	current_dialogue_node_id = -1
-	
-	var temp_dialog_graph:DialogueGraph = current_dialogue_graph
-	current_dialogue_graph = null
+	var temp_dialog_graph:DialogueGraph = get_current_dialogue_graph().dialogue_graph
 	dialogue_finished.emit(temp_dialog_graph)
 	temp_dialog_graph = null
+	
+	remove_from_dialogue_stack()
+	
+	if dialogue_grpah_stack.is_empty():
+		finish_runtime()
+		
+
+func finish_runtime()->void:
+	current_state = STATES.INACTIVE
+	dialogue_context._clear()
+	dialogue_sequence_finished.emit()
 	
 #endregion
 
@@ -110,17 +91,20 @@ func _physics_process(delta: float) -> void:
 	if current_state == STATES.INACTIVE:
 		return
 	
-	if not current_dialogue_graph:
+	var frame:DialogueFrame = get_current_dialogue_graph()
+	
+	if not frame.dialogue_graph:
 		push_error("dialogue state active but no dialogue assigned")
 		return
 	
-	if starting_node_index == -1:
+	
+	if frame.starting_node_index == -1:
 		push_error("no valid start point in dialogue")
 		return
 	
 	
 	var result:DialogueNodeUpdateResult
-	result = graph_map[current_dialogue_node_id]._update(dialogue_context)
+	result = frame.graph_map[frame.current_node_index]._update(dialogue_context)
 	
 	match result.result_type:
 		BaseDialogueNode.transaction_results.FAILURE:
@@ -128,10 +112,10 @@ func _physics_process(delta: float) -> void:
 		BaseDialogueNode.transaction_results.END:
 			end_dialog()
 		BaseDialogueNode.transaction_results.ADVANCE:
-			graph_map[current_dialogue_node_id]._exit(dialogue_context)
-			var next_node_map:Vector2i = connection_map[Vector2i(current_dialogue_node_id,result.port_id)]
-			current_dialogue_node_id = next_node_map.x
-			graph_map[current_dialogue_node_id]._enter(dialogue_context)
+			frame.graph_map[frame.current_node_index]._exit(dialogue_context)
+			var next_node_map:Vector2i = frame.connection_map[Vector2i(frame.current_node_index,result.port_id)]
+			frame.current_node_index = next_node_map.x
+			frame.graph_map[frame.current_node_index]._enter(dialogue_context)
 		BaseDialogueNode.transaction_results.RUNNING:
 			pass
 		
