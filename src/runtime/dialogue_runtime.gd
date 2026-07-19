@@ -56,11 +56,15 @@ func get_current_dialogue_graph()->DialogueFrame:
 
 
 #region dailog_control
-func start_dialog(dialogue_graph:DialogueGraph)->void:
+func _create_frame(dialogue_graph:DialogueGraph)->DialogueFrame:
 	var frame:DialogueFrame = DialogueFrame.new(dialogue_graph)
 	frame.build_maps()
 	frame.current_node_index = frame.starting_node_index
 	dialogue_grpah_stack.append(frame)
+	return frame
+
+func start_dialog(dialogue_graph:DialogueGraph)->void:
+	var frame:DialogueFrame = _create_frame(dialogue_graph)
 	
 	current_state = STATES.ACTIVE
 	
@@ -78,7 +82,10 @@ func end_dialog()->void:
 	
 	if dialogue_grpah_stack.is_empty():
 		finish_runtime()
-		
+		return
+	
+	frame = get_current_dialogue_graph()
+	frame.graph_map[frame.current_node_index]._enter(dialogue_context)
 
 func finish_runtime()->void:
 	current_state = STATES.INACTIVE

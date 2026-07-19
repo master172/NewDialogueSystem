@@ -5,7 +5,9 @@ enum transaction_results{
 	END,
 	ADVANCE,
 	RUNNING,
-	FAILURE
+	FAILURE,
+	CALL,
+	RETURN,
 }
 
 func create_result(type_of_result:transaction_results,port:int=0)->DialogueNodeUpdateResult:
