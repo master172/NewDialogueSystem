@@ -9,7 +9,7 @@ func _enter(context:DialogueContext)->void:
 	if not context.dialog_box_interface.advance_signal.is_connected(advance_signal_recieved):
 		context.dialog_box_interface.advance_signal.connect(advance_signal_recieved)
 	
-	var parsed_text:String = VariableParser.replace_symbols(text,context.variable_interface)
+	var parsed_text:String = TextParser.parse(text,context)
 	context.dialog_box_interface.display_dialog(parsed_text)
 	
 	

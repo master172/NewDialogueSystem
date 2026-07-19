@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c8f85j82xai6a"]
+
+[ext_resource type="Script" uid="uid://btaxyq6gsn10e" path="res://tests/text_parser_text.gd" id="1_gbtmc"]
+[ext_resource type="Script" uid="uid://dftq1ftjsoeam" path="res://src/runtime/expression_interface.gd" id="2_8pdqh"]
+[ext_resource type="Script" uid="uid://d3ojvsud7670m" path="res://src/dialogue_expression_evaluator/evaluator/DEEvaluator.gd" id="3_5iphi"]
+[ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/expression_evaluator.gd" id="4_i3otr"]
+[ext_resource type="Script" uid="uid://lntjjdet2rvp" path="res://src/runtime/variable_interface.gd" id="5_dcwm0"]
+
+[node name="text_parser_test" type="Node2D" unique_id=1436750085 node_paths=PackedStringArray("dialogue_expression_interface", "dialogue_variable_interface")]
+script = ExtResource("1_gbtmc")
+dialogue_expression_interface = NodePath("DialogueExpressionInterface")
+dialogue_variable_interface = NodePath("DialogueVariableInterface")
+input = "hello {my.name} did you know that saying your name is swirtez would be [{my.name} == \"swirtez\"], also  120.9 / 26.5 * 18.3 is [120.9 / 26.5 * 18.3]"
+
+[node name="DialogueExpressionInterface" type="Node" parent="." unique_id=442410935 node_paths=PackedStringArray("dialogue_expression_evaluator", "de_evaluator")]
+script = ExtResource("2_8pdqh")
+dialogue_expression_evaluator = NodePath("DialogueExpressionEvaluator")
+de_evaluator = NodePath("DEEvaluator")
+metadata/_custom_type_script = "uid://dftq1ftjsoeam"
+
+[node name="DEEvaluator" type="Node" parent="DialogueExpressionInterface" unique_id=1253674011]
+script = ExtResource("3_5iphi")
+metadata/_custom_type_script = "uid://d3ojvsud7670m"
+
+[node name="DialogueExpressionEvaluator" type="Node" parent="DialogueExpressionInterface" unique_id=714920296 node_paths=PackedStringArray("variable_interface")]
+script = ExtResource("4_i3otr")
+variable_interface = NodePath("../../DialogueVariableInterface")
+metadata/_custom_type_script = "uid://cwaxatpba6s8c"
+
+[node name="DialogueVariableInterface" type="Node" parent="." unique_id=577052945]
+script = ExtResource("5_dcwm0")
+variables = Dictionary[String, Variant]({
+"my": {
+"name": "Master"
+}
+})
+metadata/_custom_type_script = "uid://lntjjdet2rvp"

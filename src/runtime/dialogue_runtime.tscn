@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dftq1ftjsoeam" path="res://src/runtime/expression_interface.gd" id="8_dofin"]
 [ext_resource type="Script" uid="uid://cwaxatpba6s8c" path="res://src/dialogue_expression_evaluator/expression_evaluator.gd" id="9_t8sqj"]
 [ext_resource type="Script" uid="uid://d3ojvsud7670m" path="res://src/dialogue_expression_evaluator/evaluator/DEEvaluator.gd" id="10_u26y0"]
+[ext_resource type="Script" uid="uid://b1hdyxcce5bv3" path="res://src/runtime/text_parser_interface.gd" id="11_u26y0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34jt8"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
@@ -134,3 +135,6 @@ metadata/_custom_type_script = "uid://cwaxatpba6s8c"
 [node name="DEEvaluator" type="Node" parent="ExpressionInterface" unique_id=892546741]
 script = ExtResource("10_u26y0")
 metadata/_custom_type_script = "uid://d3ojvsud7670m"
+
+[node name="TextParserInterface" type="Node" parent="." unique_id=1731786588]
+script = ExtResource("11_u26y0")

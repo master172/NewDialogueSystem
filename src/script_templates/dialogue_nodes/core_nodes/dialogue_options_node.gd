@@ -29,7 +29,7 @@ func _build_options(given_options:Array[DialogueOptionResource],context:Dialogue
 
 func create_option_resource(option:DialogueOptionResource,context:DialogueContext)->UIOptionResource:
 	var returning_option:UIOptionResource = UIOptionResource.new()
-	returning_option.text = VariableParser.replace_symbols(option.text,context.variable_interface)
+	returning_option.text = TextParser.parse(option.text,context)
 	if not option.disabled_condtion.is_empty():
 		returning_option.disabled = context.expression_interface.evaluate(option.disabled_condtion)
 	else:

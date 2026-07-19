@@ -67,4 +67,27 @@ func has_in_dictionary(input:String)->bool:
 	var last:int = path.size() -1
 	var key:String = path[last]
 	return pointer.has(key)
+
+func erase_from_dictionary(input:String)->bool:
+	var path:PackedStringArray = input.split(".")
+	var pointer:Dictionary = variables
 	
+	if path.is_empty():
+		push_error("empty path provided")
+		return false
+	
+	if path.size() == 1:
+		return variables.erase(path[0])
+	
+	for i:int in path.size() - 1:
+		if !pointer.has(path[i]):
+			return false
+		
+		if !(pointer[path[i]] is Dictionary):
+			push_error("value in path is not dictionary")
+			return false
+		
+		pointer = pointer[path[i]]
+	
+	var key:String = path[path.size() - 1]
+	return pointer.erase(key)
