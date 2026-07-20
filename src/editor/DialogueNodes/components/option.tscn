@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bxbc6kgrdvrdv"]
+
+[node name="Option" type="Control" unique_id=1751089126]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2060910133]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1108336279]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="InfoContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=86066585]
+layout_mode = 2
+
+[node name="OptionText" type="LineEdit" parent="PanelContainer/MarginContainer/InfoContainer" unique_id=922689367]
+layout_mode = 2
+placeholder_text = "option text"
+
+[node name="VisibleCondition" type="CodeEdit" parent="PanelContainer/MarginContainer/InfoContainer" unique_id=1353914354]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "visible condtion"
+delimiter_strings = Array[String](["\" \"", "' '"])
+
+[node name="DisabledCondition" type="CodeEdit" parent="PanelContainer/MarginContainer/InfoContainer" unique_id=983766585]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "disabled condition"

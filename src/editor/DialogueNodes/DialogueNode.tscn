@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cq14booalulep"]
+
+[node name="DialogueNode" type="GraphNode" unique_id=301003130]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -737.0
+offset_bottom = -445.0
+grow_horizontal = 2
+grow_vertical = 2
+resizable = true
+title = "Dialogue Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=1759367549]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "enter dialog here"

@@ -1,5 +1,16 @@
 [gd_scene format=3 uid="uid://bchbxejgchkp1"]
 
+[ext_resource type="Script" uid="uid://b6kqtfax6docd" path="res://src/editor/dialog_editor.gd" id="1_dh2ni"]
+[ext_resource type="PackedScene" uid="uid://cq14booalulep" path="res://src/editor/DialogueNodes/DialogueNode.tscn" id="2_t3hdj"]
+[ext_resource type="Script" uid="uid://dh8nxp11t0562" path="res://src/editor/tool_bar.gd" id="3_rhdo2"]
+[ext_resource type="PackedScene" uid="uid://btthkba0qsnuj" path="res://src/editor/DialogueNodes/EndNode.tscn" id="4_3k7dn"]
+[ext_resource type="PackedScene" uid="uid://cs0ej65twiapt" path="res://src/editor/DialogueNodes/EventNode.tscn" id="4_kch8h"]
+[ext_resource type="Script" uid="uid://sxfeasxumkhk" path="res://src/editor/graph_edit.gd" id="4_qisyl"]
+[ext_resource type="PackedScene" uid="uid://cjjsvhjsvvjhc" path="res://src/editor/DialogueNodes/ExpressionNode.tscn" id="5_0qkx5"]
+[ext_resource type="PackedScene" uid="uid://chacng78o8ij8" path="res://src/editor/DialogueNodes/StartNode.tscn" id="5_kkov0"]
+[ext_resource type="PackedScene" uid="uid://7g35x5c0crih" path="res://src/editor/DialogueNodes/OptionNode.tscn" id="6_kch8h"]
+[ext_resource type="PackedScene" uid="uid://cxwjyej7x5los" path="res://src/editor/DialogueNodes/ConditionNode.tscn" id="7_gfmdt"]
+
 [node name="DialogEditor" type="Control" unique_id=716810296]
 layout_mode = 3
 anchors_preset = 15
@@ -7,30 +18,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dh2ni")
 
-[node name="GraphEdit" type="GraphEdit" parent="." unique_id=197315784]
+[node name="MainContainer" type="VBoxContainer" parent="." unique_id=243236546]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scroll_offset = Vector2(-40, -40)
+theme_override_constants/separation = 0
 
-[node name="GraphNode" type="GraphNode" parent="GraphEdit" unique_id=127753948]
-layout_mode = 0
-offset_left = 96.0
-offset_top = 285.0
-offset_right = 267.0
-offset_bottom = 404.0
-mouse_filter = 1
-position_offset = Vector2(56, 245)
+[node name="ToolBarPanel" type="PanelContainer" parent="MainContainer" unique_id=1278189428]
+layout_mode = 2
 
-[node name="GraphNode2" type="GraphNode" parent="GraphEdit" unique_id=1770049467]
-layout_mode = 0
-offset_left = 397.0
-offset_top = 178.0
-offset_right = 568.0
-offset_bottom = 297.0
-mouse_filter = 1
-position_offset = Vector2(357, 138)
+[node name="ToolBar" type="HBoxContainer" parent="MainContainer/ToolBarPanel" unique_id=357441540 node_paths=PackedStringArray("graph_edit", "add_button")]
+layout_mode = 2
+alignment = 2
+script = ExtResource("3_rhdo2")
+dialogue_node = ExtResource("2_t3hdj")
+event_node = ExtResource("4_kch8h")
+expression_node = ExtResource("5_0qkx5")
+option_node = ExtResource("6_kch8h")
+condition_node = ExtResource("7_gfmdt")
+graph_edit = NodePath("../../GraphEdit")
+add_button = NodePath("Button")
+
+[node name="Button" type="MenuButton" parent="MainContainer/ToolBarPanel/ToolBar" unique_id=973294961]
+layout_mode = 2
+text = "add new"
+flat = false
+
+[node name="GraphEdit" type="GraphEdit" parent="MainContainer" unique_id=197315784]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_offset = Vector2(-10, 0)
+script = ExtResource("4_qisyl")
+_end_node = ExtResource("4_3k7dn")
+_start_node = ExtResource("5_kkov0")
+
+[connection signal="connection_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_request"]

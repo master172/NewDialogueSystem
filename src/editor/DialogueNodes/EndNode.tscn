@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://btthkba0qsnuj"]
+
+[node name="EndNode" type="GraphNode" unique_id=177005300]
+offset_right = 151.0
+offset_bottom = 103.0
+title = "End Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Retainer" type="Control" parent="." unique_id=30707487]
+layout_mode = 2

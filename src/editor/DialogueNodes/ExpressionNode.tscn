@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cjjsvhjsvvjhc"]
+
+[node name="ExpressionNode" type="GraphNode" unique_id=1641957013]
+offset_right = 229.0
+offset_bottom = 120.0
+resizable = true
+title = "Expression Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="CodeEdit" type="CodeEdit" parent="." unique_id=2100653144]
+layout_mode = 2
+size_flags_vertical = 3
