@@ -11,7 +11,7 @@ func _enter(context:DialogueContext)->void:
 
 @warning_ignore("unused_parameter")
 func _exit(context:DialogueContext)->void:
-	pass
+	result = null
 
 @warning_ignore("unused_parameter")
 func _update(context:DialogueContext)->DialogueNodeUpdateResult:

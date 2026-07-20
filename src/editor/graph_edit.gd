@@ -3,6 +3,9 @@ extends GraphEdit
 @export var _end_node: PackedScene
 @export var _start_node: PackedScene
 
+var node_to_index:Dictionary[StringName,int]
+var next_id:int = 0
+var free_ids:Array[int] = []
 
 func _ready() -> void:
 	_prepare()
@@ -13,7 +16,9 @@ func _prepare()->void:
 	var end_node:GraphNode = _end_node.instantiate()
 	end_node.position_offset = Vector2(600,200)
 	add_child(start_node)
+	allocate_id(start_node.name)
 	add_child(end_node)
+	allocate_id(end_node.name)
 
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
@@ -24,6 +29,7 @@ func add_new_node(node_type:PackedScene)->void:
 	var center:Vector2 = scroll_offset + (size/2.0) / zoom
 	new_node.position_offset  = center
 	add_child(new_node,true)
+	allocate_id(new_node.name)
 
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
@@ -33,6 +39,7 @@ func _on_disconnection_request(from_node: StringName, from_port: int, to_node: S
 func _on_delete_nodes_request(nodes: Array[StringName]) -> void:
 	for i:StringName in nodes:
 		var child:GraphNode = get_node_or_null(NodePath(i))
+		deallocate_id(i)
 		delete_graph_node(child)
 
 func delete_graph_node(node:GraphNode)->void:
@@ -47,7 +54,27 @@ func delete_graph_node(node:GraphNode)->void:
 	
 	node.queue_free()
 
+func get_current_id()->int:
+	if not free_ids.is_empty():
+		return free_ids.pop_back()
+	
+	var id:int = next_id
+	next_id += 1
+	return id
 
+func free_id(id:int)->void:
+	free_ids.push_back(id)
+
+func allocate_id(node_name:StringName)->void:
+	node_to_index[node_name] = get_current_id()
+
+func deallocate_id(node_name:StringName)->void:
+	if not node_to_index.has(node_name):
+		push_error("error trying to deallocate non existent id")
+		return
+	free_id(node_to_index[node_name])
+	node_to_index.erase(node_name)
+	
 func _on_connection_to_empty(from_node: StringName, from_port: int, release_position: Vector2) -> void:
 	for connection:Dictionary in get_connection_list():
 		if connection.from_node == from_node and connection.from_port == from_port:

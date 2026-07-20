@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bchbxejgchkp1"]
 
 [ext_resource type="Script" uid="uid://b6kqtfax6docd" path="res://src/editor/dialog_editor.gd" id="1_dh2ni"]
-[ext_resource type="PackedScene" uid="uid://cq14booalulep" path="res://src/editor/DialogueNodes/DialogueNode.tscn" id="2_t3hdj"]
+[ext_resource type="PackedScene" uid="uid://cq14booalulep" path="res://src/editor/DialogueNodes/dialogue_node.tscn" id="2_t3hdj"]
 [ext_resource type="Script" uid="uid://dh8nxp11t0562" path="res://src/editor/tool_bar.gd" id="3_rhdo2"]
-[ext_resource type="PackedScene" uid="uid://btthkba0qsnuj" path="res://src/editor/DialogueNodes/EndNode.tscn" id="4_3k7dn"]
-[ext_resource type="PackedScene" uid="uid://cs0ej65twiapt" path="res://src/editor/DialogueNodes/EventNode.tscn" id="4_kch8h"]
+[ext_resource type="PackedScene" uid="uid://btthkba0qsnuj" path="res://src/editor/DialogueNodes/end_node.tscn" id="4_3k7dn"]
+[ext_resource type="PackedScene" uid="uid://cs0ej65twiapt" path="res://src/editor/DialogueNodes/event_node.tscn" id="4_kch8h"]
 [ext_resource type="Script" uid="uid://sxfeasxumkhk" path="res://src/editor/graph_edit.gd" id="4_qisyl"]
-[ext_resource type="PackedScene" uid="uid://cjjsvhjsvvjhc" path="res://src/editor/DialogueNodes/ExpressionNode.tscn" id="5_0qkx5"]
-[ext_resource type="PackedScene" uid="uid://chacng78o8ij8" path="res://src/editor/DialogueNodes/StartNode.tscn" id="5_kkov0"]
-[ext_resource type="PackedScene" uid="uid://7g35x5c0crih" path="res://src/editor/DialogueNodes/OptionNode.tscn" id="6_kch8h"]
-[ext_resource type="PackedScene" uid="uid://cxwjyej7x5los" path="res://src/editor/DialogueNodes/ConditionNode.tscn" id="7_gfmdt"]
+[ext_resource type="PackedScene" uid="uid://cjjsvhjsvvjhc" path="res://src/editor/DialogueNodes/expression_node.tscn" id="5_0qkx5"]
+[ext_resource type="PackedScene" uid="uid://chacng78o8ij8" path="res://src/editor/DialogueNodes/start_node.tscn" id="5_kkov0"]
+[ext_resource type="PackedScene" uid="uid://7g35x5c0crih" path="res://src/editor/DialogueNodes/option_node.tscn" id="6_kch8h"]
+[ext_resource type="PackedScene" uid="uid://cxwjyej7x5los" path="res://src/editor/DialogueNodes/condition_node.tscn" id="7_gfmdt"]
 
 [node name="DialogEditor" type="Control" unique_id=716810296]
 layout_mode = 3
@@ -54,12 +54,9 @@ flat = false
 [node name="GraphEdit" type="GraphEdit" parent="MainContainer" unique_id=197315784]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_offset = Vector2(-10, 0)
 script = ExtResource("4_qisyl")
 _end_node = ExtResource("4_3k7dn")
 _start_node = ExtResource("5_kkov0")
-
-[node name="PopupMenu" type="PopupMenu" parent="." unique_id=664257573]
 
 [connection signal="connection_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_request"]
 [connection signal="connection_to_empty" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_to_empty"]

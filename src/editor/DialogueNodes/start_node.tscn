@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://chacng78o8ij8"]
 
+[ext_resource type="Script" uid="uid://cljwa2tvkxsgk" path="res://src/editor/DialogueNodes/start_node.gd" id="1_ti2ve"]
+
 [node name="StartNode" type="GraphNode" unique_id=177005300]
 offset_right = 151.0
 offset_bottom = 103.0
@@ -13,6 +15,7 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+script = ExtResource("1_ti2ve")
 
 [node name="Retainer" type="Control" parent="." unique_id=30707487]
 layout_mode = 2

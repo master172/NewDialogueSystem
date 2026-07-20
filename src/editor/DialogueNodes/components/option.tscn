@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://bxbc6kgrdvrdv"]
 
-[node name="Option" type="Control" unique_id=1751089126]
+[ext_resource type="Script" uid="uid://bwfqnvnbowuqm" path="res://src/editor/DialogueNodes/components/option.gd" id="1_kqqda"]
+
+[node name="Option" type="Control" unique_id=1751089126 node_paths=PackedStringArray("option_text", "visible_condition", "disabled_condition")]
 custom_minimum_size = Vector2(0, 168)
 layout_mode = 3
 anchors_preset = 0
 size_flags_vertical = 3
+script = ExtResource("1_kqqda")
+option_text = NodePath("PanelContainer/MarginContainer/InfoContainer/OptionText")
+visible_condition = NodePath("PanelContainer/MarginContainer/InfoContainer/VisibleCondition")
+disabled_condition = NodePath("PanelContainer/MarginContainer/InfoContainer/DisabledCondition")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=2060910133]
 layout_mode = 1
@@ -32,9 +38,14 @@ placeholder_text = "option text"
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "visible condtion"
-delimiter_strings = Array[String](["\" \"", "' '"])
 
 [node name="DisabledCondition" type="CodeEdit" parent="PanelContainer/MarginContainer/InfoContainer" unique_id=983766585]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "disabled condition"
+
+[node name="remove" type="Button" parent="PanelContainer/MarginContainer/InfoContainer" unique_id=431173163]
+layout_mode = 2
+text = "remove"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/InfoContainer/remove" to="." method="_on_remove_pressed"]

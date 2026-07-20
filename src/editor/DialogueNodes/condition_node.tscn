@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cxwjyej7x5los"]
 
-[node name="ConditionNode" type="GraphNode" unique_id=1109622547]
+[ext_resource type="Script" uid="uid://bvsg06oucjc3n" path="res://src/editor/DialogueNodes/condition_node.gd" id="1_w58jh"]
+
+[node name="ConditionNode" type="GraphNode" unique_id=1109622547 node_paths=PackedStringArray("code_edit")]
 offset_right = 194.0
 offset_bottom = 226.0
 resizable = true
@@ -32,6 +34,8 @@ slot/2/right_type = 0
 slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
+script = ExtResource("1_w58jh")
+code_edit = NodePath("CodeEdit")
 
 [node name="CodeEdit" type="CodeEdit" parent="." unique_id=1418034863]
 layout_mode = 2

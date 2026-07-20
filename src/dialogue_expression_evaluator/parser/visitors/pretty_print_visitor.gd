@@ -4,11 +4,11 @@ class_name PrettyPrintVisitor
 func visit(node:ASTNode)->void:
 	print(node.accept(self))
 
-func parenthesize(given_name:String,arguements:Array[ASTNode])->String:
+func parenthesize(given_name:String,arguments:Array[ASTNode])->String:
 	var returning_string:String = ""
 	returning_string += "( " + given_name + " "
 	
-	for i:ASTNode in arguements:
+	for i:ASTNode in arguments:
 		returning_string += " " + i.accept(self)
 	returning_string += " )"
 	

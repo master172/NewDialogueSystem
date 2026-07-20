@@ -56,6 +56,8 @@ func _ready() -> void:
 func _add_menu_options()->void:
 	for i:Dictionary in options_map.values():
 		add_button.get_popup().add_item(i["name"])
-	
+
+		
+		
 func _on_id_pressed(id:int)->void:
 	graph_edit.add_new_node(options_map[id]["node"])
