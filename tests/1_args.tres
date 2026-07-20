@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DialogueArgumentList" format=3 uid="uid://cakuhpicbxg33"]
+
+[ext_resource type="Script" uid="uid://bqmkcwnow8e41" path="res://src/script_templates/transaction_resources/dialogue_arguement_list.gd" id="1_ogjj0"]
+
+[resource]
+script = ExtResource("1_ogjj0")
+args = Dictionary[String, Variant]({
+"name": "Swirtez"
+})
+metadata/_custom_type_script = "uid://bqmkcwnow8e41"

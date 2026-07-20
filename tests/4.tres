@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogueGraph" format=3 uid="uid://pw77fsutypoh"]
+
+[ext_resource type="Script" uid="uid://kmkx5sr24rw0" path="res://src/script_templates/runtime_resources/dialogue_connection.gd" id="1_okglm"]
+[ext_resource type="Script" uid="uid://ca4cj7ke8toq5" path="res://src/script_templates/dialogue_nodes/base_dialogue_node.gd" id="2_tda6m"]
+[ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_irmrl"]
+[ext_resource type="Script" uid="uid://cqifhr1yddokl" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_event_node.gd" id="4_d48kg"]
+[ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="5_mykda"]
+[ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="6_opjx4"]
+
+[sub_resource type="Resource" id="Resource_ju7ky"]
+script = ExtResource("1_okglm")
+to_id = 2
+
+[sub_resource type="Resource" id="Resource_nl2a8"]
+script = ExtResource("1_okglm")
+from_id = 2
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_qt86p"]
+script = ExtResource("3_irmrl")
+
+[sub_resource type="Resource" id="Resource_8noll"]
+script = ExtResource("4_d48kg")
+event_name = "test_event"
+arguments = Dictionary[String, Variant]({
+"name": "Swirtez"
+})
+id = 2
+
+[sub_resource type="Resource" id="Resource_qf7dw"]
+script = ExtResource("5_mykda")
+id = 1
+
+[resource]
+script = ExtResource("6_opjx4")
+dialogs = Array[ExtResource("2_tda6m")]([SubResource("Resource_qt86p"), SubResource("Resource_8noll"), SubResource("Resource_qf7dw")])
+connections = Array[ExtResource("1_okglm")]([SubResource("Resource_ju7ky"), SubResource("Resource_nl2a8")])

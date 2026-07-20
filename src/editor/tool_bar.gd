@@ -16,6 +16,7 @@ extends HBoxContainer
 
 @export_group("Tools")
 @export var add_button: MenuButton
+@export var save_location: LineEdit
 
 @onready var options_map:Dictionary[int,Dictionary] = {
 	0:{
@@ -48,6 +49,9 @@ extends HBoxContainer
 	}
 	
 }
+
+signal seralize(save_location:String)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_button.get_popup().id_pressed.connect(_on_id_pressed)
@@ -61,3 +65,7 @@ func _add_menu_options()->void:
 		
 func _on_id_pressed(id:int)->void:
 	graph_edit.add_new_node(options_map[id]["node"])
+
+
+func _on_seralize_pressed() -> void:
+	seralize.emit(save_location.text)

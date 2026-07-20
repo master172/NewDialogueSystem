@@ -5,6 +5,8 @@ class_name DialogueEditorOption
 @export var visible_condition: CodeEdit
 @export var disabled_condition: CodeEdit
 
+var assigned_option:int
+
 func serialize()->DialogueOptionResource:
 	var option:DialogueOptionResource = DialogueOptionResource.new()
 	option.text = option_text.text

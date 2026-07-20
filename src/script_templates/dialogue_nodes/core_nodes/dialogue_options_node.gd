@@ -4,8 +4,6 @@ class_name DialogueOptionsNode
 var _is_finished:bool = false
 var _selected_option:int = -1
 
-#TODO instead of passing plain text pass resources that can hold stuff like disabled,
-#icons etc
 @export var options:Array[DialogueOptionResource] = []
 
 var _visible_options:PackedInt32Array = []

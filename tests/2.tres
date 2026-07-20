@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="DialogueGraph" format=3 uid="uid://c3cn342qhy4w6"]
+
+[ext_resource type="Script" uid="uid://kmkx5sr24rw0" path="res://src/script_templates/runtime_resources/dialogue_connection.gd" id="1_o1f5t"]
+[ext_resource type="Script" uid="uid://ca4cj7ke8toq5" path="res://src/script_templates/dialogue_nodes/base_dialogue_node.gd" id="2_1xr7b"]
+[ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_7oeam"]
+[ext_resource type="Script" uid="uid://cqifhr1yddokl" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_event_node.gd" id="4_nk7g6"]
+[ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="5_p3gox"]
+[ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="6_uy3ip"]
+
+[sub_resource type="Resource" id="Resource_bryua"]
+script = ExtResource("1_o1f5t")
+to_id = 2
+
+[sub_resource type="Resource" id="Resource_3i700"]
+script = ExtResource("1_o1f5t")
+from_id = 2
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_gm22g"]
+script = ExtResource("3_7oeam")
+
+[sub_resource type="Resource" id="Resource_sbywa"]
+script = ExtResource("4_nk7g6")
+event_name = "test_event"
+id = 2
+
+[sub_resource type="Resource" id="Resource_ceply"]
+script = ExtResource("5_p3gox")
+id = 1
+
+[resource]
+script = ExtResource("6_uy3ip")
+dialogs = Array[ExtResource("2_1xr7b")]([SubResource("Resource_gm22g"), SubResource("Resource_sbywa"), SubResource("Resource_ceply")])
+connections = Array[ExtResource("1_o1f5t")]([SubResource("Resource_bryua"), SubResource("Resource_3i700")])

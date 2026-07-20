@@ -10,6 +10,11 @@ var free_ids:Array[int] = []
 func _ready() -> void:
 	_prepare()
 
+var current_graph:DialogueGraph
+
+#TODO a lot of ux improvemnts making sure output ports can only have a single connection
+#copy paste duplicate and cut, alongside frames and right click addition
+
 func _prepare()->void:
 	var start_node:GraphNode = _start_node.instantiate()
 	start_node.position_offset = Vector2(20,200)
@@ -85,3 +90,22 @@ func _on_connection_to_empty(from_node: StringName, from_port: int, release_posi
 				connection.to_port
 			)
 			return
+
+func _serialize()->DialogueGraph:
+	var connection_list:Array[Dictionary] = get_connection_list()
+	var graph:DialogueGraph = DialogueGraph.new()
+	
+	for i:Node in get_children():
+		if not i is DialogueEditorNode:
+			continue
+		i = i as DialogueEditorNode
+		var node:BaseDialogueNode = i.seralize()
+		node.id = node_to_index[i.name]
+		graph.dialogs.append(node)
+		graph.connections.append_array(i.get_connections(node_to_index,connection_list))
+	
+	
+	return graph
+	
+func _on_tool_bar_seralize(save_location:String) -> void:
+	ResourceSaver.save(_serialize(),save_location)

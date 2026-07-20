@@ -125,8 +125,8 @@ metadata/_custom_type_script = "uid://b6efois10qsd0"
 [sub_resource type="Resource" id="Resource_pyjqu"]
 script = ExtResource("7_4vfop")
 event_name = "test_event"
-arguements = Dictionary[String, Variant]({
-"name": "{player.name}"
+arguments = Dictionary[String, Variant]({
+"name": "Swirtez"
 })
 id = 6
 metadata/_custom_type_script = "uid://cqifhr1yddokl"

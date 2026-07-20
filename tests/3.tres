@@ -1,0 +1,215 @@
+[gd_resource type="Resource" script_class="DialogueGraph" format=3 uid="uid://d2ahk76yhpayp"]
+
+[ext_resource type="Script" uid="uid://kmkx5sr24rw0" path="res://src/script_templates/runtime_resources/dialogue_connection.gd" id="1_6fnsa"]
+[ext_resource type="Script" uid="uid://ca4cj7ke8toq5" path="res://src/script_templates/dialogue_nodes/base_dialogue_node.gd" id="2_mhoaj"]
+[ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_ovldy"]
+[ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="4_k5fi4"]
+[ext_resource type="Script" uid="uid://cygu50gsf0nyi" path="res://src/script_templates/transaction_resources/dialogue_option_resource.gd" id="5_xdulb"]
+[ext_resource type="Script" uid="uid://b6efois10qsd0" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_options_node.gd" id="6_xayoj"]
+[ext_resource type="Script" uid="uid://ium3rjdwxfih" path="res://src/script_templates/dialogue_nodes/flow_nodes/dialogue_conditon_node.gd" id="7_sdfer"]
+[ext_resource type="Script" uid="uid://dwhuptrc5ag4b" path="res://src/script_templates/dialogue_nodes/flow_nodes/dialogue_expression_node.gd" id="8_bm0rj"]
+[ext_resource type="Script" uid="uid://cqifhr1yddokl" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_event_node.gd" id="9_drwyr"]
+[ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="10_7io43"]
+[ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="11_o1ov8"]
+
+[sub_resource type="Resource" id="Resource_1hk6l"]
+script = ExtResource("1_6fnsa")
+to_id = 2
+
+[sub_resource type="Resource" id="Resource_cjfrg"]
+script = ExtResource("1_6fnsa")
+from_id = 2
+to_id = 3
+
+[sub_resource type="Resource" id="Resource_p047p"]
+script = ExtResource("1_6fnsa")
+from_id = 3
+to_id = 4
+
+[sub_resource type="Resource" id="Resource_j5n5j"]
+script = ExtResource("1_6fnsa")
+from_id = 4
+from_port = 2
+to_id = 2
+
+[sub_resource type="Resource" id="Resource_6gsf3"]
+script = ExtResource("1_6fnsa")
+from_id = 4
+from_port = 3
+to_id = 7
+
+[sub_resource type="Resource" id="Resource_ib2l4"]
+script = ExtResource("1_6fnsa")
+from_id = 4
+from_port = 4
+to_id = 8
+
+[sub_resource type="Resource" id="Resource_dx0ai"]
+script = ExtResource("1_6fnsa")
+from_id = 4
+from_port = 1
+to_id = 11
+
+[sub_resource type="Resource" id="Resource_lbabh"]
+script = ExtResource("1_6fnsa")
+from_id = 4
+to_id = 10
+
+[sub_resource type="Resource" id="Resource_iqwj8"]
+script = ExtResource("1_6fnsa")
+from_id = 7
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_wksrx"]
+script = ExtResource("1_6fnsa")
+from_id = 8
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_scm2h"]
+script = ExtResource("1_6fnsa")
+from_id = 12
+from_port = 1
+to_id = 13
+
+[sub_resource type="Resource" id="Resource_wj2ty"]
+script = ExtResource("1_6fnsa")
+from_id = 12
+to_id = 14
+
+[sub_resource type="Resource" id="Resource_ul4ha"]
+script = ExtResource("1_6fnsa")
+from_id = 10
+to_id = 5
+
+[sub_resource type="Resource" id="Resource_qxnm7"]
+script = ExtResource("1_6fnsa")
+from_id = 11
+to_id = 6
+
+[sub_resource type="Resource" id="Resource_43dcm"]
+script = ExtResource("1_6fnsa")
+from_id = 6
+to_id = 12
+
+[sub_resource type="Resource" id="Resource_256p2"]
+script = ExtResource("1_6fnsa")
+from_id = 5
+to_id = 12
+
+[sub_resource type="Resource" id="Resource_h25ye"]
+script = ExtResource("1_6fnsa")
+from_id = 13
+to_id = 9
+
+[sub_resource type="Resource" id="Resource_u73tk"]
+script = ExtResource("1_6fnsa")
+from_id = 9
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_t06cj"]
+script = ExtResource("1_6fnsa")
+from_id = 14
+to_id = 13
+
+[sub_resource type="Resource" id="Resource_kcvr0"]
+script = ExtResource("3_ovldy")
+
+[sub_resource type="Resource" id="Resource_bf1rs"]
+script = ExtResource("4_k5fi4")
+text = "writing a simple dialog to see if this works <page> this time with pagination
+and evaluation [2+2 == 4 and false != true]"
+id = 2
+
+[sub_resource type="Resource" id="Resource_35wua"]
+script = ExtResource("4_k5fi4")
+text = "enter an option"
+id = 3
+
+[sub_resource type="Resource" id="Resource_iv8xd"]
+script = ExtResource("5_xdulb")
+text = "1"
+
+[sub_resource type="Resource" id="Resource_u7u0y"]
+script = ExtResource("5_xdulb")
+text = "2"
+
+[sub_resource type="Resource" id="Resource_23rc5"]
+script = ExtResource("5_xdulb")
+text = "return"
+
+[sub_resource type="Resource" id="Resource_rk7v2"]
+script = ExtResource("5_xdulb")
+text = "invisible option"
+visible_condition = "false"
+
+[sub_resource type="Resource" id="Resource_rth1b"]
+script = ExtResource("5_xdulb")
+text = "disabled condtion"
+disabled_condtion = "true"
+
+[sub_resource type="Resource" id="Resource_5bf8c"]
+script = ExtResource("6_xayoj")
+options = Array[ExtResource("5_xdulb")]([SubResource("Resource_iv8xd"), SubResource("Resource_u7u0y"), SubResource("Resource_23rc5"), SubResource("Resource_rk7v2"), SubResource("Resource_rth1b")])
+id = 4
+
+[sub_resource type="Resource" id="Resource_okbvr"]
+script = ExtResource("4_k5fi4")
+text = "this option is invisible"
+id = 7
+
+[sub_resource type="Resource" id="Resource_mswps"]
+script = ExtResource("4_k5fi4")
+text = "this option is diabled"
+id = 8
+
+[sub_resource type="Resource" id="Resource_g0p6a"]
+script = ExtResource("7_sdfer")
+conditon = "{used.val} == 2"
+id = 12
+
+[sub_resource type="Resource" id="Resource_o275i"]
+script = ExtResource("8_bm0rj")
+expression = "{used.val} = 1"
+id = 10
+
+[sub_resource type="Resource" id="Resource_kvjr3"]
+script = ExtResource("8_bm0rj")
+expression = "{used.val} = 2"
+id = 11
+
+[sub_resource type="Resource" id="Resource_6pt2y"]
+script = ExtResource("4_k5fi4")
+text = "pressed 2 you will get the secret message"
+id = 6
+
+[sub_resource type="Resource" id="Resource_218yt"]
+script = ExtResource("4_k5fi4")
+text = "pressed 1 you will not get the secret message"
+id = 5
+
+[sub_resource type="Resource" id="Resource_x5yra"]
+script = ExtResource("9_drwyr")
+event_name = "test_event"
+arguments = Dictionary[String, Variant]({
+"name": "Swirtez"
+})
+id = 13
+
+[sub_resource type="Resource" id="Resource_0sdl3"]
+script = ExtResource("10_7io43")
+id = 1
+
+[sub_resource type="Resource" id="Resource_lpyat"]
+script = ExtResource("4_k5fi4")
+text = "ending"
+id = 9
+
+[sub_resource type="Resource" id="Resource_vr3iy"]
+script = ExtResource("4_k5fi4")
+text = "you got the secret text used val was {used.val}"
+id = 14
+
+[resource]
+script = ExtResource("11_o1ov8")
+dialogs = Array[ExtResource("2_mhoaj")]([SubResource("Resource_kcvr0"), SubResource("Resource_bf1rs"), SubResource("Resource_35wua"), SubResource("Resource_5bf8c"), SubResource("Resource_okbvr"), SubResource("Resource_mswps"), SubResource("Resource_g0p6a"), SubResource("Resource_o275i"), SubResource("Resource_kvjr3"), SubResource("Resource_6pt2y"), SubResource("Resource_218yt"), SubResource("Resource_x5yra"), SubResource("Resource_0sdl3"), SubResource("Resource_lpyat"), SubResource("Resource_vr3iy")])
+connections = Array[ExtResource("1_6fnsa")]([SubResource("Resource_1hk6l"), SubResource("Resource_cjfrg"), SubResource("Resource_p047p"), SubResource("Resource_j5n5j"), SubResource("Resource_6gsf3"), SubResource("Resource_ib2l4"), SubResource("Resource_dx0ai"), SubResource("Resource_lbabh"), SubResource("Resource_iqwj8"), SubResource("Resource_wksrx"), SubResource("Resource_scm2h"), SubResource("Resource_wj2ty"), SubResource("Resource_ul4ha"), SubResource("Resource_qxnm7"), SubResource("Resource_43dcm"), SubResource("Resource_256p2"), SubResource("Resource_h25ye"), SubResource("Resource_u73tk"), SubResource("Resource_t06cj")])

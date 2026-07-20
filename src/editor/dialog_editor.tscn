@@ -32,9 +32,9 @@ theme_override_constants/separation = 0
 [node name="ToolBarPanel" type="PanelContainer" parent="MainContainer" unique_id=1278189428]
 layout_mode = 2
 
-[node name="ToolBar" type="HBoxContainer" parent="MainContainer/ToolBarPanel" unique_id=357441540 node_paths=PackedStringArray("graph_edit", "add_button")]
+[node name="ToolBar" type="HBoxContainer" parent="MainContainer/ToolBarPanel" unique_id=357441540 node_paths=PackedStringArray("graph_edit", "add_button", "save_location")]
 layout_mode = 2
-alignment = 2
+theme_override_constants/separation = 16
 script = ExtResource("3_rhdo2")
 dialogue_node = ExtResource("2_t3hdj")
 event_node = ExtResource("4_kch8h")
@@ -45,9 +45,21 @@ end_node = ExtResource("4_3k7dn")
 start_node = ExtResource("5_kkov0")
 graph_edit = NodePath("../../GraphEdit")
 add_button = NodePath("Button")
+save_location = NodePath("SaveLocation")
+
+[node name="SaveLocation" type="LineEdit" parent="MainContainer/ToolBarPanel/ToolBar" unique_id=277799374]
+custom_maximum_size = Vector2(454, -1)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "enter save location here"
+
+[node name="Seralize" type="Button" parent="MainContainer/ToolBarPanel/ToolBar" unique_id=1451819486]
+layout_mode = 2
+text = "serialize"
 
 [node name="Button" type="MenuButton" parent="MainContainer/ToolBarPanel/ToolBar" unique_id=973294961]
 layout_mode = 2
+size_flags_horizontal = 10
 text = "add new"
 flat = false
 
@@ -58,6 +70,8 @@ script = ExtResource("4_qisyl")
 _end_node = ExtResource("4_3k7dn")
 _start_node = ExtResource("5_kkov0")
 
+[connection signal="seralize" from="MainContainer/ToolBarPanel/ToolBar" to="MainContainer/GraphEdit" method="_on_tool_bar_seralize"]
+[connection signal="pressed" from="MainContainer/ToolBarPanel/ToolBar/Seralize" to="MainContainer/ToolBarPanel/ToolBar" method="_on_seralize_pressed"]
 [connection signal="connection_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_request"]
 [connection signal="connection_to_empty" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_to_empty"]
 [connection signal="delete_nodes_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_delete_nodes_request"]

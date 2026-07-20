@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="DialogueGraph" format=3 uid="uid://ctkaj7mekflfu"]
+
+[ext_resource type="Script" uid="uid://kmkx5sr24rw0" path="res://src/script_templates/runtime_resources/dialogue_connection.gd" id="1_41uqq"]
+[ext_resource type="Script" uid="uid://ca4cj7ke8toq5" path="res://src/script_templates/dialogue_nodes/base_dialogue_node.gd" id="2_1slov"]
+[ext_resource type="Script" uid="uid://7qj2hmgyvpgm" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_start_node.gd" id="3_wllnw"]
+[ext_resource type="Script" uid="uid://cygu50gsf0nyi" path="res://src/script_templates/transaction_resources/dialogue_option_resource.gd" id="4_8jp6p"]
+[ext_resource type="Script" uid="uid://b6efois10qsd0" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_options_node.gd" id="5_wypmr"]
+[ext_resource type="Script" uid="uid://cv6pccyh4t72n" path="res://src/script_templates/dialogue_nodes/control_nodes/dialogue_end_node.gd" id="6_cgne1"]
+[ext_resource type="Script" uid="uid://ce2qfikhk5avg" path="res://src/script_templates/dialogue_nodes/core_nodes/dialogue_text_node.gd" id="7_mrgsg"]
+[ext_resource type="Script" uid="uid://5rcpd6ha7bfx" path="res://src/script_templates/runtime_resources/dialogue_graph.gd" id="8_b6jru"]
+
+[sub_resource type="Resource" id="Resource_os1cm"]
+script = ExtResource("1_41uqq")
+to_id = 2
+
+[sub_resource type="Resource" id="Resource_fcyy2"]
+script = ExtResource("1_41uqq")
+from_id = 2
+to_id = 3
+
+[sub_resource type="Resource" id="Resource_jbbjk"]
+script = ExtResource("1_41uqq")
+from_id = 2
+from_port = 1
+to_id = 4
+
+[sub_resource type="Resource" id="Resource_wbrli"]
+script = ExtResource("1_41uqq")
+from_id = 3
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_xd30c"]
+script = ExtResource("1_41uqq")
+from_id = 4
+to_id = 1
+
+[sub_resource type="Resource" id="Resource_ommpi"]
+script = ExtResource("3_wllnw")
+
+[sub_resource type="Resource" id="Resource_krqv4"]
+script = ExtResource("4_8jp6p")
+text = "1"
+
+[sub_resource type="Resource" id="Resource_s3vet"]
+script = ExtResource("4_8jp6p")
+text = "2"
+
+[sub_resource type="Resource" id="Resource_a6viq"]
+script = ExtResource("5_wypmr")
+options = Array[ExtResource("4_8jp6p")]([SubResource("Resource_krqv4"), SubResource("Resource_s3vet")])
+id = 2
+
+[sub_resource type="Resource" id="Resource_u2i11"]
+script = ExtResource("6_cgne1")
+id = 1
+
+[sub_resource type="Resource" id="Resource_lp3rl"]
+script = ExtResource("7_mrgsg")
+text = "1"
+id = 3
+
+[sub_resource type="Resource" id="Resource_lau4w"]
+script = ExtResource("7_mrgsg")
+text = "2"
+id = 4
+
+[resource]
+script = ExtResource("8_b6jru")
+dialogs = Array[ExtResource("2_1slov")]([SubResource("Resource_ommpi"), SubResource("Resource_a6viq"), SubResource("Resource_u2i11"), SubResource("Resource_lp3rl"), SubResource("Resource_lau4w")])
+connections = Array[ExtResource("1_41uqq")]([SubResource("Resource_os1cm"), SubResource("Resource_fcyy2"), SubResource("Resource_jbbjk"), SubResource("Resource_wbrli"), SubResource("Resource_xd30c")])
