@@ -59,9 +59,5 @@ script = ExtResource("4_qisyl")
 _end_node = ExtResource("4_3k7dn")
 _start_node = ExtResource("5_kkov0")
 
-[node name="PopupMenu" type="PopupMenu" parent="." unique_id=664257573]
-
 [connection signal="connection_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_request"]
-[connection signal="connection_to_empty" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_connection_to_empty"]
-[connection signal="delete_nodes_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_delete_nodes_request"]
 [connection signal="disconnection_request" from="MainContainer/GraphEdit" to="MainContainer/GraphEdit" method="_on_disconnection_request"]

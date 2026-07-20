@@ -6,6 +6,8 @@ extends HBoxContainer
 @export var expression_node: PackedScene
 @export var option_node: PackedScene
 @export var condition_node: PackedScene
+@export var end_node: PackedScene
+@export var start_node: PackedScene
 
 
 @export_category("Editor Nodes")
@@ -35,6 +37,14 @@ extends HBoxContainer
 	4:{
 		"name":"ConditionNode",
 		"node":condition_node
+	},
+	5:{
+		"name":"StartNode",
+		"node":start_node
+	},
+	6:{
+		"name":"EndNode",
+		"node":end_node
 	}
 	
 }
